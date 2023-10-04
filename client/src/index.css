@@ -39,3 +39,21 @@ li
 	padding: 5px 0;
 	background-color: white;
 }
+
+.offered_product
+{
+	border: 1px solid green;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	margin: 10px;
+	width: 100px;
+}
+
+.list_product
+{
+	display: flex;
+	flex-direction: row;
+}
