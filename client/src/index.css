@@ -40,6 +40,8 @@ li
 	background-color: white;
 }
 
+
+/* Liste des produits */
 .offered_product
 {
 	border: 1px solid green;
@@ -56,4 +58,32 @@ li
 {
 	display: flex;
 	flex-direction: row;
+}
+
+/* Affichage du panier */
+.panier_product
+{
+	border: 1px solid orange;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	/* align-items: center; */
+	padding: 10px;
+	margin: 10px;
+	/* width: 100px; */
+}
+
+/* Liste des produits du panier */
+/* .panier_product
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+} */
+
+.list_panier
+{
+	display: flex;
+	flex-direction: column;
 }

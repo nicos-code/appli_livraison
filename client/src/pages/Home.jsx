@@ -28,9 +28,9 @@ export default function Home(props) {
             <Footer />
         </>
     );
-  }  
+}  
 
-  function Product(props) {
+function Product(props) {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -41,8 +41,7 @@ export default function Home(props) {
         <>
            {/* Donner comme id la valeur du champ 
            props.id */}
-            {/* idée à ajuster: */}
-            <p className='offered_product' id="product_{props._id}" >
+            <p className='offered_product' id={"product_" + props._id} >
                 {/* afficher les caractéristiques */}
                 <strong>{props.name}</strong><br/>
                 <em>{props.description}</em><br/>

@@ -1,12 +1,10 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
 import Home from "./pages/Home";
 import Panier from "./pages/Panier";
 
-import Header from "./pages/composant/Header";
-
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
