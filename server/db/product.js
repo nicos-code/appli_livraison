@@ -3,18 +3,20 @@ const Schema = mongoose.Schema;
 const ObjectID = Schema.ObjectId;
 
 const productSchema = new Schema({
-    _id: ObjectID,
     nom: {
         type: String,
+        required: true,
     },
     description: {
         type: String,
     },
     prix: {
         type: Number,
+        required: true,
     },
     stock: {
         type: Number,
+        required: true,
     },
 });
 

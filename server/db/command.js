@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const ObjectID = Schema.ObjectId;
 
 const commandSchema = new Schema({
-    _id: ObjectID,
     user: {
         type: ObjectID,
         ref: "User",

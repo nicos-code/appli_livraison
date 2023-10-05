@@ -11,6 +11,8 @@ router.route("/").get((req, res, next) => {
 
 router.use("/product", require("./product"));
 
+router.use("/user", require("./user"));
+
 module.exports = rootRouter;
 
 // router.route("/").get(indexController.dashboard);

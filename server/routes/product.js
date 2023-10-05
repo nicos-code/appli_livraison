@@ -6,7 +6,6 @@ const router = express.Router();
 //prettier-ignore
 router.route("/")
     .get(productController.getAllProducts)
-    .post();
 
 router
     .route("/:id")
