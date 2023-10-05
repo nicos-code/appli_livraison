@@ -1,13 +1,20 @@
-const express = require('express');
+const express = require("express");
+const logger = require("morgan");
+const security = require("./security");
+
+const PORT = 3001;
+// 31 days
+
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send("<a href=\"lien\"> Hello world!</a>");
-})
+app.use(logger("dev"));
 
-app.get('/lien', (req, res) => {
-    res.send("<a href=\"..\">Lien </a>")
-})
+require("dotenv").config();
+app.use(security.getSession());
 
-app.listen(3001);
-console.log("Express.js server launched!")
+require("./db/db");
+
+app.use(require("./routes"));
+
+app.listen(PORT);
+console.log("Express.js server launched!");
