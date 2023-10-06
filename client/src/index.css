@@ -51,7 +51,7 @@ li
 	align-items: center;
 	padding: 10px;
 	margin: 10px;
-	width: 100px;
+	width: 150px;
 }
 
 .list_product
@@ -61,7 +61,7 @@ li
 }
 
 /* Affichage du panier */
-.panier_product
+.cart_product
 {
 	border: 1px solid orange;
 	display: flex;
@@ -82,7 +82,7 @@ li
 	align-items: center;
 } */
 
-.list_panier
+.list_cart
 {
 	display: flex;
 	flex-direction: column;

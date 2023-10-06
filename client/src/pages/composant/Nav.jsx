@@ -2,8 +2,7 @@
 export default function Nav(props) {
     let menuContent = [
       {name: "Accueil", link: "/"},
-      {name: "Panier", link: "/panier"},
-      // {name: "Piano", link: "/piano"},
+      {name: "Panier", link: "/cart"}
     ];
   
     return(

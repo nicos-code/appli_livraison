@@ -2,7 +2,7 @@
 import './App.css';
 
 import Home from "./pages/Home";
-import Panier from "./pages/Panier";
+import Cart from "./pages/Cart";
 
 // import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -14,8 +14,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/panier" element={<Panier/>}/>
-        {/* <Route path="/piano" element={<Piano/>}/> */}
+        <Route path="/cart" element={<Cart/>}/>
       </Routes>
     </BrowserRouter>
   );
