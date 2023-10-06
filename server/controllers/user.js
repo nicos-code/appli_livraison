@@ -1,4 +1,5 @@
 const userModel = require("../db/user");
+const cartModel = require("../db/cart");
 
 const getAllUsers = (req, res, next) => {
     userModel

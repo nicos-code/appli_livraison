@@ -13,6 +13,8 @@ router.use("/product", require("./product"));
 
 router.use("/user", require("./user"));
 
+router.use("/cart", require("./cart"));
+
 module.exports = rootRouter;
 
 // router.route("/").get(indexController.dashboard);

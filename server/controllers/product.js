@@ -1,5 +1,5 @@
 const productModel = require("../db/product");
-const commandModel = require("../db/command");
+const cartModel = require("../db/cart");
 
 const getAllProducts = (req, res, next) => {
     productModel
@@ -29,12 +29,9 @@ const grabProduct = (req, res, next) => {
         return res.status(401).json({ error: "Unauthorized" });
     }
 
-    var productStock = null;
-    productModel
+    var productStock = productModel
         .findById(req.params.id)
-        .then((product) => {
-            productStock = product.stock;
-        })
+        .then((product) => product.stock)
         .catch((error) => {
             return next(error);
         });
@@ -51,18 +48,12 @@ const grabProduct = (req, res, next) => {
             return next(error);stock
         }));
 
-    commandModel
-        .create({
-            user: req.session.userId,
-            listeProduit: req.params.id,
-            valide: false,
+    cartModel
+        .findByIdAndUpdate(req.session.userId, {
+            $push: { products: req.params.id },
         })
-        .then((command) => {
-            res.json(command);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+        .then((cart) => cart)
+        .catch((error) => next(error));
 };
 
 module.exports = { getAllProducts, getProduct, grabProduct };
