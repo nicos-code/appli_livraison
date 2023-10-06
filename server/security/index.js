@@ -21,7 +21,7 @@ function getSession() {
 }
 
 function getOrCreateSecret() {
-    var secret = SESSION_SECRET; // Will be change to access a file/an env variable
+    let secret = SESSION_SECRET; // Will be change to access a file/an env variable
     if (secret === undefined) {
         secret = crypto.randomBytes(64).toString("hex");
     }

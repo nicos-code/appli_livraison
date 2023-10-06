@@ -29,7 +29,7 @@ const grabProduct = (req, res, next) => {
         return res.status(401).json({ error: "Unauthorized" });
     }
 
-    var productStock = productModel
+    let productStock = productModel
         .findById(req.params.id)
         .then((product) => product.stock)
         .catch((error) => {
