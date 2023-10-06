@@ -1,11 +1,18 @@
 const express = require("express");
+const cors = require("cors");
 const logger = require("morgan");
 const security = require("./security");
 
 const PORT = 3001;
-// 31 days
+
+const CORS_OPTIONS = {
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+};
 
 const app = express();
+
+app.use(cors(CORS_OPTIONS));
 
 app.use(logger("dev"));
 
