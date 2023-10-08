@@ -24,36 +24,33 @@ const getProduct = (req, res, next) => {
 };
 
 // Ajout au panier
-const grabProduct = (req, res, next) => {
+const grabProduct = async (req, res, next) => {
+    // TODO: catch + check if stock > 0
     if (!req.session.userId) {
         return res.status(401).json({ error: "Unauthorized" });
     }
 
-    let productStock = productModel
-        .findById(req.params.id)
-        .then((product) => product.stock)
-        .catch((error) => {
-            return next(error);
-        });
+    const product = await productModel.findByIdAndUpdate(
+        req.params.id,
+        { $inc: { stock: -1 } },
+        { new: true }
+    );
+
+    const cart = await cartModel.findById(req.session.userId);
+
+    console.log("cart: ", cart);
+    qteProduit = cart.qteProduit;
+    console.log("qteProduit: ", qteProduit);
 
     //prettier-ignore
-    productModel
-        .findByIdAndUpdate(req.params.id, {
-            stock: productStock - 1,
-        }
-        .then((product) => {
-            res.json(product);
-        })
-        .catch((error) => {
-            return next(error);stock
-        }));
+    qteProduit.set(
+        product._id,
+        qteProduit.has(product._id.toString()) ? qteProduit.get(product.id.toString()) + 1 : 1
+    );
 
-    cartModel
-        .findByIdAndUpdate(req.session.userId, {
-            $push: { products: req.params.id },
-        })
-        .then((cart) => cart)
-        .catch((error) => next(error));
+    await cart.save();
+
+    res.json(cart);
 };
 
 module.exports = { getAllProducts, getProduct, grabProduct };

@@ -11,7 +11,7 @@ function getSession() {
     return session({
         name: "sessionId",
         secret: getOrCreateSecret(),
-        cookie: { secure: true, maxAge: COOKIE_MAX_AGE },
+        cookie: { maxAge: COOKIE_MAX_AGE },
         resave: false,
         saveUninitialized: false,
         // store: MongoStore.create({

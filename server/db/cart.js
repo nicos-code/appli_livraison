@@ -7,10 +7,10 @@ const cartSchema = new Schema({
         type: ObjectID,
         ref: "User",
     },
-    listeProduit: {
-        type: [ObjectID],
-        ref: "Product",
-        default: [],
+    qteProduit: {
+        type: Map, // of objectid of ref product
+        of: Number,
+        default: {},
     },
     valide: {
         type: Boolean,
