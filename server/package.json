@@ -8,7 +8,7 @@
         "start": "node .",
         "initdb": "node db/init.js",
         "removedb": "node db/remove.js",
-        "resetdb": "npm run removedb; npm run initdb",
+        "resetdb": "npm run removedb && npm run initdb",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
