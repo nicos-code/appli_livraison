@@ -25,18 +25,38 @@ const getProduct = (req, res, next) => {
 
 // Ajout au panier
 const grabProduct = async (req, res, next) => {
-    // TODO: catch + check if stock > 0
+    // TODO: error should be handled by a middleware instead of a return res.status(401). ...
     if (!req.session.userId) {
-        return res.status(401).json({ error: "Unauthorized" });
+        return res
+            .status(401)
+            .json({ status: 401, error: "Unauthorized: sessionId is not set" });
     }
 
-    const product = await productModel.findByIdAndUpdate(
-        req.params.id,
-        { $inc: { stock: -1 } },
-        { new: true }
-    );
+    let product;
+    try {
+        product = await productModel.findById(req.params.id);
+    } catch (error) {
+        return next(error);
+    }
 
-    const cart = await cartModel.findById(req.session.userId);
+    if (product.stock <= 0) {
+        return res.status(403).json({ status: 403, error: "Out of stock" });
+    }
+
+    let cart;
+    try {
+        cart = await cartModel.findById(req.session.userId);
+    } catch (error) {
+        return next(error);
+    }
+
+    product.stock -= 1;
+
+    try {
+        await product.save();
+    } catch (error) {
+        return next(error);
+    }
 
     console.log("cart: ", cart);
     qteProduit = cart.qteProduit;
@@ -48,7 +68,11 @@ const grabProduct = async (req, res, next) => {
         qteProduit.has(product._id.toString()) ? qteProduit.get(product.id.toString()) + 1 : 1
     );
 
-    await cart.save();
+    try {
+        await cart.save();
+    } catch (error) {
+        return next(error);
+    }
 
     res.json(cart);
 };
