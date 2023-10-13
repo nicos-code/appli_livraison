@@ -2,7 +2,7 @@ const userModel = require("../db/user");
 const util = require("./util");
 
 const getAllUsers = async (req, res, next) => {
-    if (!(await util.checkIfAdmin(req))) {
+    if (!(await util.isAdmin(req))) {
         return util.getNotAdminRes(res);
     }
 
@@ -15,8 +15,8 @@ const getAllUsers = async (req, res, next) => {
 
 const getUser = async (req, res, next) => {
     //prettier-ignore
-    if (!await util.checkIfParamsIdIsUserId(req)) {
-        return util.getNotCorrespondingRes(res);
+    if (!await util.sessionIsCorresponding(req)) {
+        return util.getSessionNotCorrespondingRes(res);
     }
 
     try {

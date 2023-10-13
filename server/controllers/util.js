@@ -1,11 +1,11 @@
 const userModel = require("../db/user");
 
-const checkIfLoggedIn = (req) => {
+const isLoggedIn = (req) => {
     return !!req.session.userId;
 };
 
-const checkIfAdmin = async (req) => {
-    if (!checkIfLoggedIn(req)) {
+const isAdmin = async (req) => {
+    if (!isLoggedIn(req)) {
         return false;
     }
 
@@ -17,11 +17,11 @@ const checkIfAdmin = async (req) => {
     }
 };
 
-const checkIfParamsIdIsUserId = async (req) => {
+const sessionIsCorresponding = async (req) => {
     // Note: Admins can bypass this check
     return (
-        checkIfLoggedIn(req) &&
-        (req.params.id === req.session.userId || (await checkIfAdmin(req)))
+        isLoggedIn(req) &&
+        (req.params.id === req.session.userId || (await isAdmin(req)))
     );
 };
 
@@ -37,7 +37,7 @@ const getNotAdminRes = (res) => {
         .json({ status: 403, error: "Unauthorized: user is not admin" });
 };
 
-const getNotCorrespondingRes = (res) => {
+const getSessionNotCorrespondingRes = (res) => {
     //prettier-ignore
     return res
         .status(403)
@@ -45,10 +45,10 @@ const getNotCorrespondingRes = (res) => {
 };
 
 module.exports = {
-    checkIfLoggedIn,
-    checkIfAdmin,
-    checkIfParamsIdIsUserId,
+    isLoggedIn,
+    isAdmin,
+    sessionIsCorresponding,
     getNotLoggedInRes,
     getNotAdminRes,
-    getNotCorrespondingRes,
+    getSessionNotCorrespondingRes,
 };
