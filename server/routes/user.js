@@ -7,6 +7,9 @@ const router = express.Router();
 router.route("/")
     .get(userController.getAllUsers)
 
-router.route("/:id").get(userController.getUser);
+//prettier-ignore
+router.route("/:id")
+    .get(userController.getUser)
+    .post(userController.editUser);
 
 module.exports = router;
