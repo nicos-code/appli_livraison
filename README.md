@@ -19,16 +19,26 @@
 -   `/product`
     -   **GET** `/` - Get all products.
     -   **GET** `/:id` - Get product info.
-    -   **POST** `/:id` - Grab product in cart (using userId stored in session).
-    -   **DELETE** `/:id` - Drop product from cart (using userId stored in session).
+    -   **POST** `/:id` - Grab product in cart.
+        -   Only if: logged in and product not out of stock.
+    -   **DELETE** `/:id` - Drop product from cart.
+        -   Only if: logged in and cart not empty.
 -   `/user`
-    -   **GET** `/` - Get all users (admin).
+    -   **GET** `/`
+        -   Only if: admin.
     -   **GET** `/:id` - Get specific user.
+        -   Only if: admin or the user id is already stored in session.
     -   **POST** `/:id` - Edit user with body parameters.
+        -   Only if: admin or the user id is already stored in session.
 -   `/cart`
-    -   **GET** `/` - Get all carts (admin).
+    -   **GET** `/` - Get all carts.
+        -   Only if: admin
     -   **GET** `/:id` - Get the cart of a specific user.
+        -   Only if: admin or the user id is already stored in session.
     -   **POST** `/:id` - Validate cart: empty cart and put the order in the "order" table.
+        -   Only if: admin or the user id is already stored in session.
 -   `/order`
     -   **GET** `/` - Get all orders (admin).
+        -   Only if: admin.
     -   **GET** `/:id` - Get order from a specific user.
+        -   Only if: admin or the user id is already stored in session.
