@@ -28,6 +28,10 @@ const getCart = async (req, res, next) => {
 };
 
 const validateCart = async (req, res, next) => {
+    if (!(await util.sessionIsCorresponding(req))) {
+        return util.getSessionNotCorrespondingRes(res);
+    }
+
     let cart;
     try {
         cart = await cartModel.findById(req.params.id);

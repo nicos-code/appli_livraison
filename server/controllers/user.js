@@ -27,6 +27,10 @@ const getUser = async (req, res, next) => {
 };
 
 const editUser = async (req, res, next) => {
+    if (!(await util.sessionIsCorresponding(req))) {
+        return util.getSessionNotCorrespondingRes(res);
+    }
+
     if (req.body.firstName) {
         try {
             await userModel.findByIdAndUpdate(
