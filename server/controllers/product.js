@@ -27,9 +27,8 @@ const getProduct = (req, res, next) => {
 // Ajout au panier
 const grabProduct = async (req, res, next) => {
     // TODO: error should be handled by a middleware instead of a return res.status(401). ...
-    const [isLoggedIn, resp] = util.checkIfLoggedIn(req, res, next);
-    if (!isLoggedIn) {
-        return resp;
+    if (!(await util.checkIfLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
     }
 
     // Get product
@@ -80,9 +79,8 @@ const grabProduct = async (req, res, next) => {
 
 const dropProduct = async (req, res, next) => {
     // TODO: error should be handled by a middleware instead of a return res.status(401). ...
-    const [isLoggedIn, resp] = util.checkIfLoggedIn(req, res, next);
-    if (!isLoggedIn) {
-        return resp;
+    if (!(await util.checkIfLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
     }
 
     // Get product

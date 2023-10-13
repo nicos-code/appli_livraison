@@ -1,26 +1,29 @@
 const userModel = require("../db/user");
-const cartModel = require("../db/cart");
+const util = require("./util");
 
-const getAllUsers = (req, res, next) => {
-    userModel
-        .find({})
-        .then((users) => {
-            res.json(users);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+const getAllUsers = async (req, res, next) => {
+    if (!(await util.checkIfAdmin(req))) {
+        return util.getNotAdminRes(res);
+    }
+
+    try {
+        res.json(await userModel.find({}));
+    } catch (error) {
+        return next(error);
+    }
 };
 
-const getUser = (req, res, next) => {
-    userModel
-        .findById(req.params.id)
-        .then((user) => {
-            res.json(user);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+const getUser = async (req, res, next) => {
+    //prettier-ignore
+    if (!await util.checkIfParamsIdIsUserId(req)) {
+        return util.getNotCorrespondingRes(res);
+    }
+
+    try {
+        res.json(await userModel.findById(req.params.id));
+    } catch (error) {
+        return next(error);
+    }
 };
 
 const editUser = async (req, res, next) => {

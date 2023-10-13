@@ -1,28 +1,30 @@
 const cartModel = require("../db/cart");
 const orderModel = require("../db/order");
+const util = require("./util");
 
-const getAllCarts = (req, res, next) => {
-    //TODO: This command Should only be accessible by admin
-    cartModel
-        .find({})
-        .then((carts) => {
-            res.json(carts);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+const getAllCarts = async (req, res, next) => {
+    if (!(await util.checkIfAdmin(req))) {
+        return util.getNotAdminRes(res);
+    }
+
+    try {
+        res.json(await cartModel.find({}));
+    } catch (error) {
+        return next(error);
+    }
 };
 
-const getCart = (req, res, next) => {
-    //TODO: We should check if the user is logged in OR if the user is admin
-    cartModel
-        .findById(req.params.id)
-        .then((cart) => {
-            res.json(cart);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+const getCart = async (req, res, next) => {
+    //prettier-ignore
+    if (!(await util.checkIfParamsIdIsUserId(req))) {
+        return util.getNotCorrespondingRes(res);
+    }
+
+    try {
+        res.json(await cartModel.findById(req.params.id));
+    } catch (error) {
+        return next(error);
+    }
 };
 
 const validateCart = async (req, res, next) => {
