@@ -2,26 +2,20 @@ const productModel = require("../db/product");
 const cartModel = require("../db/cart");
 const util = require("./util");
 
-const getAllProducts = (req, res, next) => {
-    productModel
-        .find({})
-        .then((products) => {
-            res.json(products);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+const getAllProducts = async (req, res, next) => {
+    try {
+        res.json(await productModel.find({}));
+    } catch (error) {
+        return next(error);
+    }
 };
 
-const getProduct = (req, res, next) => {
-    productModel
-        .findById(req.params.id)
-        .then((product) => {
-            res.json(product);
-        })
-        .catch((error) => {
-            return next(error);
-        });
+const getProduct = async (req, res, next) => {
+    try {
+        res.json(await productModel.findById(req.params.id));
+    } catch (error) {
+        return next(error);
+    }
 };
 
 // Ajout au panier
