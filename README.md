@@ -24,7 +24,7 @@
     -   **DELETE** `/:id` - Drop product from cart.
         -   Only if: logged in and cart not empty.
 -   `/user`
-    -   **GET** `/`
+    -   **GET** `/` - Get all users.
         -   Only if: admin.
     -   **GET** `/:id` - Get specific user.
         -   Only if: admin or the user id is already stored in session.
