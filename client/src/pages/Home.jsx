@@ -10,7 +10,7 @@ export default function Home(props) {
         <>
             <Header />
             <Nav />
-            <div class="container">
+            <div className="container">
                 <h2>Produits</h2>
                 <p>Présentation de nos différents produits :</p>
                 {/* appel à l'api : /api
@@ -54,8 +54,12 @@ function Product(props) {
 
             {/* post : id et /product/:id */}
             <button
-                class="btn btn-primary"
-                onClick={() => getJson("/product/id/" + props._id, console.log)}
+                className="btn btn-primary"
+                onClick={() =>
+                    postJson("/product/id/" + props._id, () =>
+                        refreshList(props.setData)
+                    )
+                }
             >
                 Ajouter au panier
             </button>
@@ -63,19 +67,21 @@ function Product(props) {
     );
 }
 
+function refreshList(setData) {
+    getJson("/product/all", setData);
+}
+
 function ListProduct() {
     // Une fois connecté au back
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        getJson("/product/all", setData);
+        refreshList(setData);
     }, []);
 
     if (data == null) {
         return <p>Chargement des produits...</p>;
     }
-
-    const product = data.map((item) => <Product {...item} />);
 
     // En attendant, on utilise une string qui est une liste de produits
     //simuler la réponse de l'api avec une string
@@ -88,5 +94,5 @@ function ListProduct() {
     //produit de test
     // const product = <Product nom="Banane" description="Fruit jaune" prix="1.2" stock="5" />;
 
-    return product;
+    return data.map((item) => <Product {...item} setData={setData} />);
 }

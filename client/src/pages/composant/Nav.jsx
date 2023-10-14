@@ -1,13 +1,14 @@
 // Menu de navigation
 export default function Nav(props) {
     let menuContent = [
-        { name: "Accueil", link: "/" },
+        { name: "Accueil", link: "/home" },
         { name: "Panier", link: "/cart" },
+        { name: "Connexion", link: "/" },
     ];
 
     return (
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <ul class="navbar-nav">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <ul className="navbar-nav">
                 {menuContent.map((item) => (
                     <NavElement link={item.link} name={item.name} />
                 ))}
@@ -19,8 +20,8 @@ export default function Nav(props) {
 //element du menu
 function NavElement(props) {
     return (
-        <li class="nav-item">
-            <a class="nav-link" href={props.link}>
+        <li className="nav-item">
+            <a className="nav-link" href={props.link}>
                 {props.name}
             </a>
         </li>

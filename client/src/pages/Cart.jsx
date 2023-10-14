@@ -2,6 +2,7 @@ import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
 import { useState, useEffect } from "react";
+import _ from "lodash";
 
 import { getJson, postJson } from "../common/functions";
 
@@ -65,24 +66,40 @@ function sumCart() {
     // document.getElementById("prix_commande").innerText = sum + " €";
 }
 
+function refreshList(setData) {
+    getJson("/cart", setData);
+    // sumCart();
+}
+
 function CartProduct(props) {
+    const [product, setProduct] = useState(null);
+    useEffect(() => {
+        getJson("/product/id/" + props.productId, setProduct);
+    }, [props.productId]);
+
+    if (product == null) {
+        return <p>Chargement du produit...</p>;
+    }
+
     return (
-        <p className="cart_product" id={"product_" + props._id}>
+        <p className="cart_product" id={"product_" + props.productId}>
             {/* Donner comme id la valeur du champ
         props.id */}
             {/* afficher les caractéristiques */}
-            <strong>{props.name}</strong>
+            <strong>{product.nom}</strong>
             <br />
-            <span>Prix : {props.price} €</span>
+            <span>Prix : {product.prix} €</span>
             <br />
-            <span>Quantité : {props.quantity}</span>
+            <span>Quantité : {props.qte}</span>
             <br />
-            <span>Stock Total : {props.stock}</span>
+            <span>Stock Total : {product.stock}</span>
             <br />
             {/* <span id={"prix_total_" + props._id}>Prix Total : {props.price * props.quantity} €</span> */}
             <span>
                 Prix Total :{" "}
-                <span className="cart_product_total">{props.stock}</span> €
+                <span className="cart_product_total">
+                    {product.prix * props.qte} €
+                </span>
             </span>
         </p>
     );
@@ -93,15 +110,26 @@ function ListCart() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        getJson("/product/all", setData);
-        sumCart();
+        refreshList(setData);
     }, []);
 
-    if (data == null) {
+    if (data == null || data.qteProduit == null) {
         return <p>Chargement des produits...</p>;
     }
 
-    const product = data.map((item) => <CartProduct {...item} />);
+    if (_.isEmpty(data.qteProduit)) {
+        return <p>Le panier est vide.</p>;
+    }
+
+    let product = [];
+    for (let productId in data.qteProduit) {
+        product.push(
+            <CartProduct
+                productId={productId}
+                qte={data.qteProduit[productId]}
+            />
+        );
+    }
 
     // const response = fetch("/api/cart");
     // const data = response.json();

@@ -1,14 +1,12 @@
-// import logo from './logo.svg';
-import "./App.css";
+// import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Auth from "./pages/Auth";
 
-// import ReactDOM from 'react-dom';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-
+import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 

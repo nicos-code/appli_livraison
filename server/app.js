@@ -8,6 +8,8 @@ const PORT = 3001;
 const CORS_OPTIONS = {
     origin: "http://localhost:3000",
     optionsSuccessStatus: 200,
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    credentials: true,
 };
 
 const app = express();

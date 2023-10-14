@@ -25,16 +25,16 @@ export default function Auth(props) {
     return (
         <>
             <Header />
-            <div class="container">
+            <div className="container">
                 <h2>Authentification</h2>
                 <form
                     onSubmit={formMethods.handleSubmit(onSubmit)}
-                    class="container mb-3"
+                    className="container mb-3"
                 >
-                    <div class="mb-3">
+                    <div className="mb-3">
                         <label htmlFor="email">Email : </label>
                         <input
-                            class="form-control"
+                            className="form-control"
                             id="email"
                             {...formMethods.register("email", {
                                 required: true,
@@ -43,10 +43,10 @@ export default function Auth(props) {
                             type="email"
                         />
                     </div>
-                    <div class="mb-3">
+                    <div className="mb-3">
                         <label htmlFor="password">Mot de passe : </label>
                         <input
-                            class="form-control"
+                            className="form-control"
                             id="password"
                             {...formMethods.register("password", {
                                 required: true,
@@ -60,7 +60,7 @@ export default function Auth(props) {
                     /* {errors.exampleRequired && <span>This field is required</span>} */}
                     <input
                         type="submit"
-                        class="btn btn-primary mb-3"
+                        className="btn btn-primary mb-3"
                         value="Se connecter"
                     />
                 </form>
