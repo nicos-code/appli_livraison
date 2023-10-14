@@ -14,6 +14,7 @@ export default function Auth(props) {
     const navigate = useNavigate();
 
     const handleResponse = (response) => {
+        console.log(response);
         if (response.status === 200) {
             navigate("/home");
         } else {
@@ -37,7 +38,7 @@ export default function Auth(props) {
 
                 <h2>Vous n'avez pas de compte ?</h2>
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-outline-secondary"
                     onClick={() => navigate("/signup")}
                 >
                     Créer un compte

@@ -43,6 +43,7 @@ const login = async (req, res, next) => {
 
     try {
         req.session.userId = user.id;
+        req.session.userEmail = user.email;
         return res.status(200).json({
             status: 200,
             message: "User logged in successfully, session id is: " + user.id,
@@ -96,6 +97,7 @@ const signup = async (req, res, next) => {
         }).save();
 
         req.session.userId = user.id;
+        req.session.userEmail = user.email;
 
         return res.status(200).json({
             status: 200,
@@ -140,6 +142,7 @@ const logas = async (req, res, next) => {
     }
 
     req.session.userId = user.id;
+    req.session.userEmail = user.email;
     return res.status(200).json({
         status: 200,
         message:
@@ -148,4 +151,12 @@ const logas = async (req, res, next) => {
     });
 };
 
-module.exports = { login, signup, logout, logas };
+const getSession = async (req, res, next) => {
+    if (!(await util.isLoggedIn(req))) {
+        return res.json(null);
+    }
+
+    return res.json(req.session);
+};
+
+module.exports = { login, signup, logout, logas, getSession };

@@ -11,4 +11,6 @@ router.route("/logout").post(authController.logout);
 
 router.route("/logas/:id").post(authController.logas);
 
+router.route("/session").get(authController.getSession);
+
 module.exports = router;

@@ -14,6 +14,7 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const handleResponse = (response) => {
+        console.log(response);
         if (response.status === 200) {
             navigate("/home");
         } else {
@@ -37,7 +38,7 @@ export default function SignUp() {
 
                 <h2>Vous avez déjà un compte ?</h2>
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-outline-secondary"
                     onClick={() => navigate("/")}
                 >
                     Se connecter
