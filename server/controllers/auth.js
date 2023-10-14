@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../db/user");
+const cartModel = require("../db/cart");
 const util = require("./util");
 
 const SALT_ROUNDS = 11;
@@ -88,6 +89,10 @@ const signup = async (req, res, next) => {
         const user = await new userModel({
             email: req.body.email,
             password: hash,
+        }).save();
+
+        await new cartModel({
+            _id: user._id,
         }).save();
 
         req.session.userId = user.id;
