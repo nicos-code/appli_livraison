@@ -1,18 +1,18 @@
 const express = require("express");
-const loginController = require("../controllers/login");
+const authController = require("../controllers/auth");
 
 const router = express.Router();
 
 //prettier-ignore
-router.route("/")
-    .post(loginController.login)
+router.route("/login")
+    .post(authController.login)
 
 //prettier-ignore
 router.route("/signup")
-    .post(loginController.signup);
+    .post(authController.signup);
 
 //prettier-ignore
 router.route("/logout")
-    .get(loginController.logout);
+    .post(authController.logout);
 
 module.exports = router;

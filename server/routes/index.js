@@ -30,7 +30,7 @@ router.route("/fake-admin").get((req, res, next) => {
     setFakeAdminSession(req, res);
 });
 
-router.use("/login", require("./login"));
+router.use("/auth", require("./auth"));
 
 module.exports = rootRouter;
 
