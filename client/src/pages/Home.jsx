@@ -1,7 +1,7 @@
+import { useState, useEffect } from "react";
 import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
-import { useState, useEffect } from "react";
 import { getJson, postJson } from "../common/functions";
 
 // Page d'accueil

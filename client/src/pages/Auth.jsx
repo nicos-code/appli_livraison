@@ -1,9 +1,10 @@
-import Header from "./composant/Header";
-import Footer from "./composant/Footer";
-import { postJson } from "../common/functions";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import Header from "./composant/Header";
+import Footer from "./composant/Footer";
+import { postJson } from "../common/functions";
 
 // Page d'accueil
 export default function Auth(props) {
