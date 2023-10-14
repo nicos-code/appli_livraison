@@ -34,6 +34,14 @@ export default function SignUp() {
                     onSubmit={onSubmit}
                     buttonText="Créer le compte"
                 />
+
+                <h2>Vous avez déjà un compte ?</h2>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/")}
+                >
+                    Se connecter
+                </button>
             </div>
             <Footer />
         </>

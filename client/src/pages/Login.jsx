@@ -34,7 +34,16 @@ export default function Auth(props) {
                     onSubmit={onSubmit}
                     buttonText="Se connecter"
                 />
+
+                <h2>Vous n'avez pas de compte ?</h2>
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/signup")}
+                >
+                    Créer un compte
+                </button>
             </div>
+
             <Footer />
         </>
     );
