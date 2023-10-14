@@ -5,8 +5,8 @@ const router = express.Router();
 
 rootRouter.use("/api", router);
 
-router.route("/").get((req, res, next) => {
-    res.send("Hello world! Session id is: " + req.session.userId);
+router.route("/").get((req, res) => {
+    res.json({ message: "Hello world!", sessionId: req.session.userId });
 });
 
 router.use("/product", require("./product"));

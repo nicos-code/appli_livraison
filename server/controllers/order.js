@@ -13,17 +13,30 @@ const getAllOrders = async (req, res, next) => {
     }
 };
 
-const getOrders = async (req, res, next) => {
-    //prettier-ignore
-    if (!(await util.sessionIsCorresponding(req))) {
-        return util.getSessionNotCorrespondingRes(res);
-    }
-
+const getOrders = async (id, req, res, next) => {
     try {
-        res.json(orderModel.find({ user: req.params.id }));
+        res.json(await orderModel.find({ user: id }));
     } catch (error) {
         return next(error);
     }
 };
 
-module.exports = { getAllOrders, getOrders };
+const getIdOrders = async (req, res, next) => {
+    //prettier-ignore
+    if (!(await util.sessionIsCorresponding(req))) {
+        return util.getSessionNotCorrespondingRes(res);
+    }
+
+    return await getOrders(req.params.id, req, res, next);
+};
+
+const getSessionOrders = async (req, res, next) => {
+    //prettier-ignore
+    if (!(await util.isLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
+    }
+
+    return await getOrders(req.session.userId, req, res, next);
+};
+
+module.exports = { getAllOrders, getIdOrders, getSessionOrders };

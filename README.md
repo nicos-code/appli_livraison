@@ -17,28 +17,38 @@
 ### Endpoints `/api`
 
 -   `/product`
-    -   **GET** `/` - Get all products.
-    -   **GET** `/:id` - Get product info.
-    -   **POST** `/:id` - Grab product in cart.
+    -   **GET** `/id/:id` - Get product info.
+    -   **POST** `/id/:id` - Put product in the cart of the current user.
         -   Only if: logged in and product not out of stock.
-    -   **DELETE** `/:id` - Drop product from cart.
+    -   **DELETE** `/id/:id` - Drop product from the cart of the current user.
         -   Only if: logged in and cart not empty.
+    -   **GET** `/all` - Get all products.
 -   `/user`
-    -   **GET** `/` - Get all users.
+    -   **GET** `/` - Get current user.
+        -   Only if: logged in.
+    -   **POST** `/` - Edit current user with body parameters.
+        -   Only if: logged in.
+    -   **GET** `/id/:id` - Get specified user.
+        -   Only if: admin or the user id is already stored in session.
+    -   **POST** `/id/:id` - Edit specified user with body parameters.
+        -   Only if: admin or the user id is already stored in session.
+    -   **GET** `/all` - Get all users.
         -   Only if: admin.
-    -   **GET** `/:id` - Get specific user.
-        -   Only if: admin or the user id is already stored in session.
-    -   **POST** `/:id` - Edit user with body parameters.
-        -   Only if: admin or the user id is already stored in session.
 -   `/cart`
-    -   **GET** `/` - Get all carts.
+    -   **GET** `/` - Get cart of the current user.
+        -   Only if: logged in.
+    -   **POST** `/` - Validate cart of the current user: empty cart and put the order in the "order" table.
+        -   Only if: logged in and product not out of stock.
+    -   **GET** `/:id` - Get the cart of a specified user.
+        -   Only if: admin or the user id is already stored in session.
+    -   **POST** `/:id` - Validate cart of a specified user: empty cart and put the order in the "order" table.
+        -   Only if: admin or the user id is already stored in session.
+    -   **GET** `/all` - Get all carts.
         -   Only if: admin
-    -   **GET** `/:id` - Get the cart of a specific user.
-        -   Only if: admin or the user id is already stored in session.
-    -   **POST** `/:id` - Validate cart: empty cart and put the order in the "order" table.
-        -   Only if: admin or the user id is already stored in session.
 -   `/order`
-    -   **GET** `/` - Get all orders (admin).
-        -   Only if: admin.
-    -   **GET** `/:id` - Get order from a specific user.
+    -   **GET** `/` - Get order from the current user.
+        -   Only if: logged in.
+    -   **GET** `/:id` - Get order from a specified user.
         -   Only if: admin or the user id is already stored in session.
+    -   **GET** `/all` - Get all orders (admin).
+        -   Only if: admin.

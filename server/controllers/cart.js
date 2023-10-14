@@ -14,27 +14,36 @@ const getAllCarts = async (req, res, next) => {
     }
 };
 
-const getCart = async (req, res, next) => {
-    //prettier-ignore
-    if (!(await util.sessionIsCorresponding(req))) {
-        return util.getSessionNotCorrespondingRes(res);
-    }
-
+const getCart = async (id, req, res, next) => {
     try {
-        res.json(await cartModel.findById(req.params.id));
+        res.json(await cartModel.findById(id));
     } catch (error) {
         return next(error);
     }
 };
 
-const validateCart = async (req, res, next) => {
+const getIdCart = async (req, res, next) => {
+    //prettier-ignore
     if (!(await util.sessionIsCorresponding(req))) {
         return util.getSessionNotCorrespondingRes(res);
     }
 
+    return await getCart(req.params.id, req, res, next);
+};
+
+const getSessionCart = async (req, res, next) => {
+    //prettier-ignore
+    if (!(await util.isLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
+    }
+
+    return await getCart(req.session.userId, req, res, next);
+};
+
+const validateCart = async (id, req, res, next) => {
     let cart;
     try {
-        cart = await cartModel.findById(req.params.id);
+        cart = await cartModel.findById(id);
     } catch (error) {
         return next(error);
     }
@@ -63,4 +72,26 @@ const validateCart = async (req, res, next) => {
     res.json(order);
 };
 
-module.exports = { getAllCarts, getCart, validateCart };
+const validateIdCart = async (req, res, next) => {
+    if (!(await util.sessionIsCorresponding(req))) {
+        return util.getSessionNotCorrespondingRes(res);
+    }
+
+    return await validateCart(req.params.id, req, res, next);
+};
+
+const validateSessionCart = async (req, res, next) => {
+    if (!(await util.isLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
+    }
+
+    return await validateCart(req.session.userId, req, res, next);
+};
+
+module.exports = {
+    getAllCarts,
+    getIdCart,
+    getSessionCart,
+    validateIdCart,
+    validateSessionCart,
+};

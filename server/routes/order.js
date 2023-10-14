@@ -3,8 +3,10 @@ const orderController = require("../controllers/order");
 
 const router = express.Router();
 
-router.route("/").get(orderController.getAllOrders);
+router.route("/").get(orderController.getSessionOrders);
 
-router.route("/:id").get(orderController.getOrders);
+router.route("/all").get(orderController.getAllOrders);
+
+router.route("/id/:id").get(orderController.getIdOrders);
 
 module.exports = router;

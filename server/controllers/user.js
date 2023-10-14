@@ -13,28 +13,34 @@ const getAllUsers = async (req, res, next) => {
     }
 };
 
-const getUser = async (req, res, next) => {
-    //prettier-ignore
-    if (!await util.sessionIsCorresponding(req)) {
-        return util.getSessionNotCorrespondingRes(res);
-    }
-
+const getUser = async (id, req, res, next) => {
     try {
-        res.json(await userModel.findById(req.params.id));
+        res.json(await userModel.findById(id));
     } catch (error) {
         return next(error);
     }
 };
 
-const editUser = async (req, res, next) => {
+const getIdUser = async (req, res, next) => {
+    //prettier-ignore
     if (!(await util.sessionIsCorresponding(req))) {
         return util.getSessionNotCorrespondingRes(res);
     }
+    return await getUser(req.params.id, req, res, next);
+};
 
+const getSessionUser = async (req, res, next) => {
+    if (!(await util.isLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
+    }
+    return await getUser(req.session.userId, req, res, next);
+};
+
+const editUser = async (id, req, res, next) => {
     if (req.body.firstName) {
         try {
             await userModel.findByIdAndUpdate(
-                req.params.id,
+                id,
                 { firstName: req.body.firstName },
                 { new: true }
             );
@@ -45,7 +51,7 @@ const editUser = async (req, res, next) => {
     if (req.body.secondName) {
         try {
             await userModel.findByIdAndUpdate(
-                req.params.id,
+                id,
                 { secondName: req.body.secondName },
                 { new: true }
             );
@@ -56,7 +62,7 @@ const editUser = async (req, res, next) => {
     if (req.body.adresseNumero) {
         try {
             await userModel.findByIdAndUpdate(
-                req.params.id,
+                id,
                 { adresseNumero: req.body.adresseNumero },
                 { new: true }
             );
@@ -67,7 +73,7 @@ const editUser = async (req, res, next) => {
     if (req.body.adresseRue) {
         try {
             await userModel.findByIdAndUpdate(
-                req.params.id,
+                id,
                 { adresseRue: req.body.adresseRue },
                 { new: true }
             );
@@ -78,7 +84,7 @@ const editUser = async (req, res, next) => {
     if (req.body.ville) {
         try {
             await userModel.findByIdAndUpdate(
-                req.params.id,
+                id,
                 { ville: req.body.ville },
                 { new: true }
             );
@@ -89,7 +95,7 @@ const editUser = async (req, res, next) => {
     if (req.body.codePostal) {
         try {
             await userModel.findByIdAndUpdate(
-                req.params.id,
+                id,
                 { codePostal: req.body.codePostal },
                 { new: true }
             );
@@ -105,4 +111,26 @@ const editUser = async (req, res, next) => {
         return next(error);
     }
 };
-module.exports = { getAllUsers, getUser, editUser };
+
+const editIdUser = async (req, res, next) => {
+    //prettier-ignore
+    if (!(await util.sessionIsCorresponding(req))) {
+        return util.getSessionNotCorrespondingRes(res);
+    }
+    return await editUser(req.params.id, req, res, next);
+};
+
+const editSessionUser = async (req, res, next) => {
+    if (!(await util.isLoggedIn(req))) {
+        return util.getNotLoggedInRes(res);
+    }
+    return await editUser(req.session.userId, req, res, next);
+};
+
+module.exports = {
+    getAllUsers,
+    getIdUser,
+    getSessionUser,
+    editIdUser,
+    editSessionUser,
+};
