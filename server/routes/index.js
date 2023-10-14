@@ -30,6 +30,8 @@ router.route("/fake-admin").get((req, res, next) => {
     setFakeAdminSession(req, res);
 });
 
+router.use("/login", require("./login"));
+
 module.exports = rootRouter;
 
 // router.route("/").get(indexController.dashboard);
