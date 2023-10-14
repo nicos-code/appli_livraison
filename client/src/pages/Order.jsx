@@ -37,7 +37,7 @@ function History() {
         return <p>Aucune commande effectuée.</p>;
     }
 
-    let count = 0;
+    let count = 1;
     let history = [];
     for (let order of orders) {
         let products = [];
