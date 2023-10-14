@@ -75,7 +75,7 @@ function AuthMenu({ session }) {
                 <NavElement
                     className="btn btn-outline-secondary"
                     name="Déconnexion"
-                    link="/"
+                    link="/logout"
                 />
             </ul>
         );
