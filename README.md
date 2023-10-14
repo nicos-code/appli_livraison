@@ -14,7 +14,7 @@
 -   `npm run removedb`: permet de supprimer la base de données (supprimer la bdd "appli_livraison")
 -   `npm run resetdb`: permet de réinitialiser la base de données (correspond à faire removedb puis initdb).
 
-### Endpoints `/api`
+### Backend Endpoints `/api`
 
 -   `/product`
     -   **GET** `/id/:id` - Get product info.
@@ -52,3 +52,9 @@
         -   Only if: admin or the user id is already stored in session.
     -   **GET** `/all` - Get all orders (admin).
         -   Only if: admin.
+-   `/auth`
+    -   **POST** `/login` - Login with body parameters (email & password).
+    -   **POST** `/register` - Register with body parameters (email & password).
+    -   **GET** `/logout` - Logout.
+    -   **GET** `/logas/:id` - Log as a specified user.
+        -   Only if: admin
