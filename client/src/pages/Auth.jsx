@@ -3,6 +3,7 @@ import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // Page d'accueil
 export default function Auth(props) {
@@ -13,6 +14,8 @@ export default function Auth(props) {
     const handleResponse = (response) => {
         if (response.status === 200) {
             navigate("/home");
+        } else {
+            toast.error("Erreur d'authentification: " + response);
         }
     };
 
