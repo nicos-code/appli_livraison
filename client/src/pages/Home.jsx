@@ -57,7 +57,7 @@ function Product(props) {
                 className="btn btn-primary"
                 onClick={() =>
                     postJson("/product/id/" + props._id, () =>
-                        refreshList(props.setData)
+                        refreshList(props.setProducts)
                     )
                 }
             >
@@ -73,13 +73,13 @@ function refreshList(setData) {
 
 function ListProduct() {
     // Une fois connecté au back
-    const [data, setData] = useState(null);
+    const [products, setProducts] = useState(null);
 
     useEffect(() => {
-        refreshList(setData);
+        refreshList(setProducts);
     }, []);
 
-    if (data == null) {
+    if (products == null) {
         return <p>Chargement des produits...</p>;
     }
 
@@ -94,5 +94,7 @@ function ListProduct() {
     //produit de test
     // const product = <Product nom="Banane" description="Fruit jaune" prix="1.2" stock="5" />;
 
-    return data.map((item) => <Product {...item} setData={setData} />);
+    return products.map((product) => (
+        <Product key={product._id} {...product} setData={setProducts} />
+    ));
 }

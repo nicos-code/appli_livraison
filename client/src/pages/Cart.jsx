@@ -125,6 +125,7 @@ function ListCart() {
     for (let productId in data.qteProduit) {
         product.push(
             <CartProduct
+                key={productId}
                 productId={productId}
                 qte={data.qteProduit[productId]}
             />

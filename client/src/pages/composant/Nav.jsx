@@ -10,7 +10,11 @@ export default function Nav() {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <ul className="navbar-nav">
                 {menuContent.map((item) => (
-                    <NavElement link={item.link} name={item.name} />
+                    <NavElement
+                        key={item.link}
+                        link={item.link}
+                        name={item.name}
+                    />
                 ))}
             </ul>
         </nav>
