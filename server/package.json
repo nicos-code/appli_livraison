@@ -7,12 +7,14 @@
     "scripts": {
         "start": "node .",
         "initdb": "node db/init.js",
-        "resetdb": "node db/reset.js",
+        "removedb": "node db/remove.js",
+        "resetdb": "npm run removedb && npm run initdb",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcrypt": "^5.1.1",
         "connect-mongo": "^5.0.0",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",

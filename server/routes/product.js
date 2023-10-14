@@ -4,12 +4,14 @@ const productController = require("../controllers/product");
 const router = express.Router();
 
 //prettier-ignore
-router.route("/")
+router
+    .route("/all")
     .get(productController.getAllProducts)
 
 router
-    .route("/:id")
+    .route("/id/:id")
     .get(productController.getProduct)
-    .post(productController.grabProduct);
+    .post(productController.grabProduct)
+    .delete(productController.dropProduct);
 
 module.exports = router;

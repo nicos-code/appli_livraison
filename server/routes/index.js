@@ -5,13 +5,19 @@ const router = express.Router();
 
 rootRouter.use("/api", router);
 
-router.route("/").get((req, res, next) => {
-    res.send("Hello world!");
+router.route("/").get((req, res) => {
+    res.json({ message: "Hello world!", sessionId: req.session.userId });
 });
 
 router.use("/product", require("./product"));
 
 router.use("/user", require("./user"));
+
+router.use("/cart", require("./cart"));
+
+router.use("/order", require("./order"));
+
+router.use("/auth", require("./auth"));
 
 module.exports = rootRouter;
 

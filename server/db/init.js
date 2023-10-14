@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const productModel = require("./product");
-const commandModel = require("./command");
+const cartModel = require("./cart");
 const userModel = require("./user");
 
 async function initDb() {
@@ -34,9 +34,11 @@ async function initDb() {
         stock: 15,
     }).save();
 
-    await new userModel({
+    const admin = await new userModel({
         email: "admin@admin.com",
-        password: "admin",
+        // This is "admin" hashed by bcrypt
+        password:
+            "$2b$11$7lucTtu23uWBQ/DVqK1RuOjkfezoaDYIkWKNC2ZbcD2XECb6vbsYe",
         firstName: "Ad",
         secondName: "Min",
         adresseNumero: 1,
@@ -46,9 +48,15 @@ async function initDb() {
         isRoot: true,
     }).save();
 
-    await new userModel({
+    await new cartModel({
+        _id: admin._id,
+    }).save();
+
+    const test = await new userModel({
         email: "test@test.com",
-        password: "test",
+        // This is "test" hashed by bcrypt
+        password:
+            "$2b$11$iJLpofnfZOjl5y0ZcrLNa.i82ADH4en2HjGhEC2Kx2D8qmI0ZAq4C",
         firstName: "Te",
         secondName: "St",
         adresseNumero: 3,
@@ -56,6 +64,10 @@ async function initDb() {
         ville: "Testville",
         codePostal: "11111",
         isRoot: false,
+    }).save();
+
+    await new cartModel({
+        _id: test._id,
     }).save();
 
     await mongoose.connection.close();

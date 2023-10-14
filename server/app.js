@@ -16,6 +16,8 @@ app.use(cors(CORS_OPTIONS));
 
 app.use(logger("dev"));
 
+app.use(express.urlencoded({ extended: true }));
+
 require("dotenv").config();
 app.use(security.getSession());
 
