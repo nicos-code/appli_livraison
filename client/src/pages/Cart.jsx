@@ -5,6 +5,7 @@ import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
 import { getJson, postJson } from "../common/functions";
+import CartProduct from "./composant/CartProduct";
 
 // Page du panier
 export default function Cart() {
@@ -74,45 +75,6 @@ export default function Cart() {
 //     // document.getElementById("prix_commande").innerText = sum + " €";
 // }
 
-function refreshList(setData) {
-    getJson("/cart", setData);
-    // sumCart();
-}
-
-function CartProduct(props) {
-    const [product, setProduct] = useState(null);
-    useEffect(() => {
-        getJson("/product/id/" + props.productId, setProduct);
-    }, [props.productId]);
-
-    if (product == null) {
-        return <p>Chargement du produit...</p>;
-    }
-
-    return (
-        <p className="cart_product" id={"product_" + props.productId}>
-            {/* Donner comme id la valeur du champ
-        props.id */}
-            {/* afficher les caractéristiques */}
-            <strong>{product.nom}</strong>
-            <br />
-            <span>Prix : {product.prix} €</span>
-            <br />
-            <span>Quantité : {props.qte}</span>
-            <br />
-            <span>Stock Total : {product.stock}</span>
-            <br />
-            {/* <span id={"prix_total_" + props._id}>Prix Total : {props.price * props.quantity} €</span> */}
-            <span>
-                Prix Total :{" "}
-                <span className="cart_product_total">
-                    {product.prix * props.qte} €
-                </span>
-            </span>
-        </p>
-    );
-}
-
 function ListCart() {
     // Une fois connecté au back
     const [cart, setData] = useState(null);
@@ -140,33 +102,10 @@ function ListCart() {
         );
     }
 
-    // const response = fetch("/api/cart");
-    // const data = response.json();
-
-    // En attendant, on utilise une string qui est une liste de produits
-    //simuler la réponse de l'api avec une string
-    //v1 : toutes les infos sont dans la string
-    // const dataCart = "[{\"_id\" : 1, \"name\" : \"Banane\", \"price\" : 1.2, \"quantity\" : 5, \"stock\" : 5}, {\"_id\" : 2, \"name\" : \"Pomme\", \"price\" : 1.5, \"quantity\" : 3, \"stock\" : 6}, {\"_id\" : 3, \"name\" : \"Poire\", \"price\" : 1.8, \"quantity\" : 2, \"stock\" : 10}]";
-
-    //v2 : les infos sont dans un objet
-    // const dataCart = {
-    //     _id: "65200f05865325fb43a20744",
-    //     mapProduit: {
-    //         "65200f04865325fb43a20738": 14,
-    //         "65200f05865325fb43a2073d": 3,
-    //     },
-    //     valide: false,
-    //     __v: 0,
-    // };
-
-    // const dataa = "{\"_id\": \"65200f05865325fb43a20744\",\"qteProduit\": {\"65200f04865325fb43a20738\": 14,\"65200f05865325fb43a2073d\": 3}, \"valide\": false, \"__v\": 0}";
-
-    // Convertir la string en objet
-    // const obj = JSON.parse(dataCart);
-
-    // const product = obj.map(item => <CartProduct {...item}/>);
-
     return products;
+}
 
-    // return <PanierProduct _id="1" name="Banane" price="1.2" quantity="5" stock="5" />;
+function refreshList(setData) {
+    getJson("/cart", setData);
+    // sumCart();
 }

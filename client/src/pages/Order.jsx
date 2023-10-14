@@ -5,6 +5,7 @@ import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
 import { getJson } from "../common/functions";
+import CartProduct from "./composant/CartProduct";
 
 // Page du panier
 export default function Order() {
@@ -19,40 +20,6 @@ export default function Order() {
             <Footer />
         </>
     );
-}
-
-function CartProduct(props) {
-    const [product, setProduct] = useState(null);
-    useEffect(() => {
-        getJson("/product/id/" + props.productId, setProduct);
-    }, [props.productId]);
-
-    if (product == null) {
-        return <p>Chargement du produit...</p>;
-    }
-
-    return (
-        <p className="cart_product" id={"product_" + props.productId}>
-            <strong>{product.nom}</strong>
-            <br />
-            <span>Prix : {product.prix} €</span>
-            <br />
-            <span>Quantité : {props.qte}</span>
-            <br />
-            <span>Stock Total : {product.stock}</span>
-            <br />
-            <span>
-                Prix Total :{" "}
-                <span className="cart_product_total">
-                    {product.prix * props.qte} €
-                </span>
-            </span>
-        </p>
-    );
-}
-
-function refreshList(setData) {
-    getJson("/order", setData);
 }
 
 function History() {
@@ -92,4 +59,8 @@ function History() {
     }
 
     return history;
+}
+
+function refreshList(setData) {
+    getJson("/order", setData);
 }
