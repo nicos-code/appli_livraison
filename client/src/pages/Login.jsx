@@ -8,7 +8,7 @@ import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
 
 // Page d'accueil
-export default function Auth(props) {
+export default function Login(props) {
     const formMethods = useForm();
 
     const navigate = useNavigate();
