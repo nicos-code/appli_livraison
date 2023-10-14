@@ -93,7 +93,7 @@ function ListCart() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        getJson("/product", setData);
+        getJson("/product/all", setData);
         sumCart();
     }, []);
 

@@ -54,7 +54,7 @@ function Product(props) {
 
             {/* post : id et /product/:id */}
             <button
-                onClick={() => getJson("/product/" + props._id, console.log)}
+                onClick={() => getJson("/product/id/" + props._id, console.log)}
             >
                 Ajouter au panier
             </button>
@@ -67,7 +67,7 @@ function ListProduct() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        getJson("/product", setData);
+        getJson("/product/all", setData);
     }, []);
 
     if (data == null) {
