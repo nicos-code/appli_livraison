@@ -1,11 +1,8 @@
-// const dotenv = require("dotenv");
 const crypto = require("crypto");
 const session = require("express-session");
+const fs = require("fs");
 // const MongoStore = require("connect-mongo");
 const COOKIE_MAX_AGE = 1000 * 60 * 60 * 24 * 31;
-
-const SESSION_SECRET =
-    "7ac2b200a047becdc0e19085c0c18cb5af6b21c4fde846faee3c6a877386ce91cdda3d65ca87efd513161edf1f9151e81841ac480f3d3b13d1b2bc594bd8d2f7";
 
 function getSession() {
     return session({
@@ -21,12 +18,24 @@ function getSession() {
 }
 
 function getOrCreateSecret() {
-    let secret = SESSION_SECRET; // Will be change to access a file/an env variable
-    if (secret === undefined) {
-        secret = crypto.randomBytes(64).toString("hex");
+    if (fs.existsSync("./token.json")) {
+        console.log("Token file found. Reading session secret.");
+        const data = JSON.parse(
+            fs.readFileSync("./token.json", {
+                encoding: "utf-8",
+                flag: "r",
+            })
+        );
+        return data.sessionSecret;
     }
-    console.log("secret: ", secret);
-    return secret;
+
+    console.log("Token file not found. Generating new session secret.");
+    const secret = { sessionSecret: crypto.randomBytes(64).toString("hex") };
+    fs.writeFileSync("./token.json", JSON.stringify(secret), {
+        encoding: "utf-8",
+        flag: "w",
+    });
+    return secret.sessionSecret;
 }
 
 module.exports = { getSession };
