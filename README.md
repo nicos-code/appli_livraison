@@ -55,6 +55,6 @@
 -   `/auth`
     -   **POST** `/login` - Login with body parameters (email & password).
     -   **POST** `/register` - Register with body parameters (email & password).
-    -   **GET** `/logout` - Logout.
-    -   **GET** `/logas/:id` - Log as a specified user.
+    -   **POST** `/logout` - Logout.
+    -   **POST** `/logas/:id` - Log as a specified user.
         -   Only if: admin
