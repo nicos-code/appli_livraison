@@ -1,7 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-export function getJson(url, callback)
-{
+export function getJson(url, callback) {
     // Fetch
     // const data = null
     // fetch('http://localhost:3001/api/product', {mode: 'cors'})
@@ -14,13 +13,14 @@ export function getJson(url, callback)
     // .then((response) => setData(response.data))
     // .catch((error) => console.error("AXIOS "+error))
 
-    axios.get("http://localhost:3001/api"+url)
-    .then((response) => callback(response.data))
-    .catch((error) => console.error("AXIOS "+error))
+    axios
+        .get("http://localhost:3001/api" + url)
+        .then((response) => callback(response.data))
+        .catch((error) => console.error("AXIOS " + error));
 }
 
-export function postJson(url, callback=() => {}, json=undefined)
-{
-    axios.post("http://localhost:3001/api"+url, json)
-    .then((reponse) => callback(reponse))
+export function postJson(url, callback = () => {}, json = undefined) {
+    axios
+        .post("http://localhost:3001/api" + url, json)
+        .then((reponse) => callback(reponse));
 }
