@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export function getJson(url, callback) {
     // Fetch
@@ -16,11 +17,12 @@ export function getJson(url, callback) {
     axios
         .get("http://localhost:3001/api" + url)
         .then((response) => callback(response.data))
-        .catch((error) => console.error("AXIOS " + error));
+        .catch((error) => toast.error("Axios: " + error.response.data.error));
 }
 
 export function postJson(url, callback = () => {}, json = undefined) {
     axios
         .post("http://localhost:3001/api" + url, json)
-        .then((reponse) => callback(reponse));
+        .then((reponse) => callback(reponse))
+        .catch((error) => toast.error("Axios: " + error.response.data.error));
 }
