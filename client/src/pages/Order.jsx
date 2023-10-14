@@ -4,7 +4,7 @@ import _ from "lodash";
 import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
-import { getJson, postJson } from "../common/functions";
+import { getJson } from "../common/functions";
 
 // Page du panier
 export default function Order() {
