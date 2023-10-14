@@ -1,76 +1,69 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
 }
 
 /* menu */
-nav
-{
-	/* margin-bottom: 30px; */
+nav {
+    /* margin-bottom: 30px; */
 
-  padding: 0;
-	margin: 0;
-	text-align: center;
-	display: flex;
-	border: 1px solid black;
-	flex-direction: row;
-	justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    border: 1px solid black;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-nav ul
-{
-	list-style: none;
+nav ul {
+    list-style: none;
 }
 
-li
-{
-	position: relative;
-	width: 200px;
-  /* border: 1px solid red; */
-	padding: 5px 0;
-	background-color: white;
+li {
+    position: relative;
+    width: 200px;
+    /* border: 1px solid red; */
+    padding: 5px 0;
+    background-color: white;
 }
-
 
 /* Liste des produits */
-.offered_product
-{
-	border: 1px solid green;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 10px;
-	margin: 10px;
-	width: 150px;
+.offered_product {
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    width: 150px;
 }
 
-.list_product
-{
-	display: flex;
-	flex-direction: row;
+.list_product {
+    display: flex;
+    flex-direction: row;
 }
 
 /* Affichage du panier */
-.cart_product
-{
-	border: 1px solid orange;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	/* align-items: center; */
-	padding: 10px;
-	margin: 10px;
-	/* width: 100px; */
+.cart_product {
+    border: 1px solid orange;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: center; */
+    padding: 10px;
+    margin: 10px;
+    /* width: 100px; */
 }
 
 /* Liste des produits du panier */
@@ -82,8 +75,7 @@ li
 	align-items: center;
 } */
 
-.list_cart
-{
-	display: flex;
-	flex-direction: column;
+.list_cart {
+    display: flex;
+    flex-direction: column;
 }

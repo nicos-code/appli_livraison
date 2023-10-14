@@ -10,17 +10,17 @@ export default function Home(props) {
         <>
             <Header />
             <Nav />
-            <p>
-                <a href="/cart"> Voir le panier</a>
-            </p>
-            <p>Présentation de nos différents produits :</p>
-            {/* appel à l'api : /api
-    produits : /api/product[/:id]
+            <div class="container">
+                <h2>Produits</h2>
+                <p>Présentation de nos différents produits :</p>
+                {/* appel à l'api : /api
+        produits : /api/product[/:id]
 
-    Permet de récupérer les produits de la base de données
-*/}
-            <div className="list_product">
-                <ListProduct />
+        Permet de récupérer les produits de la base de données
+    */}
+                <div className="list_product">
+                    <ListProduct />
+                </div>
             </div>
 
             <Footer />
@@ -54,6 +54,7 @@ function Product(props) {
 
             {/* post : id et /product/:id */}
             <button
+                class="btn btn-primary"
                 onClick={() => getJson("/product/id/" + props._id, console.log)}
             >
                 Ajouter au panier

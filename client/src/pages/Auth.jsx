@@ -22,31 +22,46 @@ export default function Auth(props) {
     return (
         <>
             <Header />
-            <h2>Authentification</h2>
-            <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-                <label htmlFor="email">Email : </label>
-                <input
-                    id="email"
-                    {...formMethods.register("email", { required: true })}
-                    placeholder="Email"
-                    type="email"
-                />
-                <br />
-                <label htmlFor="password">Mot de passe : </label>
-                <input
-                    id="password"
-                    {...formMethods.register("password", { required: true })}
-                    placeholder="Mot de passe"
-                    type="password"
-                />
+            <div class="container">
+                <h2>Authentification</h2>
+                <form
+                    onSubmit={formMethods.handleSubmit(onSubmit)}
+                    class="container mb-3"
+                >
+                    <div class="mb-3">
+                        <label htmlFor="email">Email : </label>
+                        <input
+                            class="form-control"
+                            id="email"
+                            {...formMethods.register("email", {
+                                required: true,
+                            })}
+                            placeholder="Email"
+                            type="email"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label htmlFor="password">Mot de passe : </label>
+                        <input
+                            class="form-control"
+                            id="password"
+                            {...formMethods.register("password", {
+                                required: true,
+                            })}
+                            placeholder="Mot de passe"
+                            type="password"
+                        />
+                    </div>
 
-                {/* errors will return when field validation fails  */
-                /* {errors.exampleRequired && <span>This field is required</span>} */}
-                <br />
-                <input type="submit" />
-            </form>
-            <br />
-            <br />
+                    {/* errors will return when field validation fails  */
+                    /* {errors.exampleRequired && <span>This field is required</span>} */}
+                    <input
+                        type="submit"
+                        class="btn btn-primary mb-3"
+                        value="Se connecter"
+                    />
+                </form>
+            </div>
             <Footer />
         </>
     );
