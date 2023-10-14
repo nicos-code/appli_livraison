@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Auth from "./pages/Auth";
+import Order from "./pages/Order";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -19,6 +20,7 @@ export default function App() {
                     <Route path="/" element={<Auth />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/order" element={<Order />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

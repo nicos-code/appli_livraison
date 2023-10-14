@@ -4,7 +4,7 @@ import _ from "lodash";
 import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
-import { getJson } from "../common/functions";
+import { getJson, postJson } from "../common/functions";
 
 // Page du panier
 export default function Cart() {
@@ -28,7 +28,15 @@ export default function Cart() {
                     <span id="prix_commande">R U R' U' (sexy move)</span>
                 </strong>
 
-                <button onClick={() => {}}>Valider la commande</button>
+                <button
+                    onClick={() =>
+                        postJson("/cart/", () =>
+                            console.log("Commande validée")
+                        )
+                    }
+                >
+                    Valider la commande
+                </button>
             </p>
 
             <Footer />
@@ -107,27 +115,27 @@ function CartProduct(props) {
 
 function ListCart() {
     // Une fois connecté au back
-    const [data, setData] = useState(null);
+    const [cart, setData] = useState(null);
 
     useEffect(() => {
         refreshList(setData);
     }, []);
 
-    if (data == null || data.qteProduit == null) {
+    if (cart == null || cart.qteProduit == null) {
         return <p>Chargement des produits...</p>;
     }
 
-    if (_.isEmpty(data.qteProduit)) {
+    if (_.isEmpty(cart.qteProduit)) {
         return <p>Le panier est vide.</p>;
     }
 
-    let product = [];
-    for (let productId in data.qteProduit) {
-        product.push(
+    let products = [];
+    for (let productId in cart.qteProduit) {
+        products.push(
             <CartProduct
                 key={productId}
                 productId={productId}
-                qte={data.qteProduit[productId]}
+                qte={cart.qteProduit[productId]}
             />
         );
     }
@@ -158,7 +166,7 @@ function ListCart() {
 
     // const product = obj.map(item => <CartProduct {...item}/>);
 
-    return product;
+    return products;
 
     // return <PanierProduct _id="1" name="Banane" price="1.2" quantity="5" stock="5" />;
 }

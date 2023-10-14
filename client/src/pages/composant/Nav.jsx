@@ -3,20 +3,29 @@ export default function Nav() {
     let menuContent = [
         { name: "Accueil", link: "/home" },
         { name: "Panier", link: "/cart" },
-        { name: "Connexion", link: "/" },
+        { name: "Commandes", link: "/order" },
     ];
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <ul className="navbar-nav">
-                {menuContent.map((item) => (
-                    <NavElement
-                        key={item.link}
-                        link={item.link}
-                        name={item.name}
-                    />
-                ))}
-            </ul>
+            <div className="container-fluid">
+                <ul className="navbar-nav ml-auto">
+                    {menuContent.map((item) => (
+                        <NavElement
+                            key={item.link}
+                            link={item.link}
+                            name={item.name}
+                        />
+                    ))}
+                </ul>
+                <ul className="navbar-nav">
+                    <li>
+                        <a className="nav-link" href="/">
+                            Connexion
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     );
 }
