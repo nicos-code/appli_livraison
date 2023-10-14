@@ -4,10 +4,10 @@ import _ from "lodash";
 import Header from "./composant/Header";
 import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
-import { getJson, postJson } from "../common/functions";
+import { getJson } from "../common/functions";
 
 // Page du panier
-export default function Cart(props) {
+export default function Cart() {
     return (
         <>
             <Header />
@@ -36,35 +36,35 @@ export default function Cart(props) {
     );
 }
 
-function sumCart() {
-    /* Il faut calculer le prix total de la commande en faisant la somme des "prix_total_[id]" et en l'inscrivant dans "prix_commande" */
+// function sumCart() {
+//     /* Il faut calculer le prix total de la commande en faisant la somme des "prix_total_[id]" et en l'inscrivant dans "prix_commande" */
 
-    /* Pour chaque produit du panier, on récupère le prix total et on l'additionne à la somme totale */
+//     /* Pour chaque produit du panier, on récupère le prix total et on l'additionne à la somme totale */
 
-    /* On récupère tous les éléments de classe "cart_product" */
-    const products = document.getElementsByClassName("cart_product_total");
+//     /* On récupère tous les éléments de classe "cart_product" */
+//     const products = document.getElementsByClassName("cart_product_total");
 
-    /* On initialise la somme totale à 0 */
-    let sum = 0;
+//     /* On initialise la somme totale à 0 */
+//     let sum = 0;
 
-    /* On parcourt tous les éléments de classe "cart_product" */
-    for (let i = 0; i < products.length; i++) {
-        /* On récupère le prix total du produit */
-        const price = products[i].children[4].innerText.split(" ")[3];
+//     /* On parcourt tous les éléments de classe "cart_product" */
+//     for (let i = 0; i < products.length; i++) {
+//         /* On récupère le prix total du produit */
+//         const price = products[i].children[4].innerText.split(" ")[3];
 
-        /* On l'additionne à la somme totale */
-        sum += parseFloat(price);
-        console.log("prix : " + price + ", somme : " + sum);
-    }
+//         /* On l'additionne à la somme totale */
+//         sum += parseFloat(price);
+//         console.log("prix : " + price + ", somme : " + sum);
+//     }
 
-    /* On l'inscrit dans le span "prix_commande" */
-    document.getElementById("prix_commande").innerText = sum + " €";
+//     /* On l'inscrit dans le span "prix_commande" */
+//     document.getElementById("prix_commande").innerText = sum + " €";
 
-    /* On peut aussi utiliser la fonction reduce() */
-    // const products = document.getElementsByClassName("cart_product");
-    // const sum = Array.from(products).reduce((acc, product) => acc + parseFloat(product.children[4].innerText.split(" ")[3]), 0);
-    // document.getElementById("prix_commande").innerText = sum + " €";
-}
+//     /* On peut aussi utiliser la fonction reduce() */
+//     // const products = document.getElementsByClassName("cart_product");
+//     // const sum = Array.from(products).reduce((acc, product) => acc + parseFloat(product.children[4].innerText.split(" ")[3]), 0);
+//     // document.getElementById("prix_commande").innerText = sum + " €";
+// }
 
 function refreshList(setData) {
     getJson("/cart", setData);
@@ -140,15 +140,15 @@ function ListCart() {
     // const dataCart = "[{\"_id\" : 1, \"name\" : \"Banane\", \"price\" : 1.2, \"quantity\" : 5, \"stock\" : 5}, {\"_id\" : 2, \"name\" : \"Pomme\", \"price\" : 1.5, \"quantity\" : 3, \"stock\" : 6}, {\"_id\" : 3, \"name\" : \"Poire\", \"price\" : 1.8, \"quantity\" : 2, \"stock\" : 10}]";
 
     //v2 : les infos sont dans un objet
-    const dataCart = {
-        _id: "65200f05865325fb43a20744",
-        mapProduit: {
-            "65200f04865325fb43a20738": 14,
-            "65200f05865325fb43a2073d": 3,
-        },
-        valide: false,
-        __v: 0,
-    };
+    // const dataCart = {
+    //     _id: "65200f05865325fb43a20744",
+    //     mapProduit: {
+    //         "65200f04865325fb43a20738": 14,
+    //         "65200f05865325fb43a2073d": 3,
+    //     },
+    //     valide: false,
+    //     __v: 0,
+    // };
 
     // const dataa = "{\"_id\": \"65200f05865325fb43a20744\",\"qteProduit\": {\"65200f04865325fb43a20738\": 14,\"65200f05865325fb43a2073d\": 3}, \"valide\": false, \"__v\": 0}";
 

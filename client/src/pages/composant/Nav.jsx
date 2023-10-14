@@ -1,5 +1,5 @@
 // Menu de navigation
-export default function Nav(props) {
+export default function Nav() {
     let menuContent = [
         { name: "Accueil", link: "/home" },
         { name: "Panier", link: "/cart" },
