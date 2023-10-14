@@ -8,7 +8,7 @@ import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
 
 // Page d'accueil
-export default function SignUp() {
+export default function Auth(props) {
     const formMethods = useForm();
 
     const navigate = useNavigate();
@@ -22,17 +22,17 @@ export default function SignUp() {
     };
 
     const onSubmit = (data) => {
-        postJson("/auth/signup", handleResponse, data);
+        postJson("/auth/login", handleResponse, data);
     };
     return (
         <>
             <Header />
             <div className="container">
-                <h2>Créer un nouveau compte</h2>
+                <h2>Connexion</h2>
                 <LoginPassForm
                     formMethods={formMethods}
                     onSubmit={onSubmit}
-                    buttonText="Créer le compte"
+                    buttonText="Se connecter"
                 />
             </div>
             <Footer />

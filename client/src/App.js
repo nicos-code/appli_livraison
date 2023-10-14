@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
-import Auth from "./pages/Auth";
+import Login from "./pages/Login";
 import Order from "./pages/Order";
 import SignUp from "./pages/SignUp";
 
@@ -18,7 +18,7 @@ export default function App() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Auth />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/home" element={<Home />} />
                     <Route path="/cart" element={<Cart />} />
