@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const userModel = require("../db/user");
+const util = require("./util");
 
 const SALT_ROUNDS = 11;
 
@@ -114,4 +115,32 @@ const logout = async (req, res, next) => {
     }
 };
 
-module.exports = { login, signup, logout };
+const logas = async (req, res, next) => {
+    if (!(await util.isAdmin(req))) {
+        return util.getNotAdminRes(res);
+    }
+
+    let user = null;
+    try {
+        user = await userModel.findById(req.params.id);
+    } catch (error) {
+        return next(error);
+    }
+
+    if (!user) {
+        return res.status(401).json({
+            status: 401,
+            error: "Unauthorized: wrong user id",
+        });
+    }
+
+    req.session.userId = user.id;
+    return res.status(200).json({
+        status: 200,
+        message:
+            "Logged as another user successfully, session id is: " +
+            req.session.userId,
+    });
+};
+
+module.exports = { login, signup, logout, logas };
