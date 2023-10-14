@@ -1,5 +1,6 @@
 const cartModel = require("../db/cart");
 const orderModel = require("../db/order");
+const productModel = require("../db/product");
 const util = require("./util");
 
 const getAllCarts = async (req, res, next) => {
@@ -16,7 +17,13 @@ const getAllCarts = async (req, res, next) => {
 
 const getCart = async (id, req, res, next) => {
     try {
-        res.json(await cartModel.findById(id));
+        let cart = await cartModel.findById(id).lean();
+        cart.prixTotal = 0;
+        for (let produitId in cart.qteProduit) {
+            const produit = await productModel.findById(produitId);
+            cart.prixTotal += produit.prix * cart.qteProduit[produitId];
+        }
+        res.json(cart);
     } catch (error) {
         return next(error);
     }
