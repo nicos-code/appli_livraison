@@ -70,7 +70,7 @@ function AuthMenu({ session }) {
                 <NavElement
                     className="nav-brand"
                     name={session.userEmail}
-                    link="#"
+                    link="/user"
                 />
                 <NavElement
                     className="btn btn-outline-secondary"

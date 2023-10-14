@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Order from "./pages/Order";
 import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
+import User from "./pages/User";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -26,6 +27,7 @@ export default function App() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/order" element={<Order />} />
+                    <Route path="/user" element={<User />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

@@ -1,9 +1,7 @@
-const bcrypt = require("bcrypt");
 const userModel = require("../db/user");
 const cartModel = require("../db/cart");
 const util = require("./util");
-
-const SALT_ROUNDS = 11;
+const hashHandler = require("../security/hash");
 
 const login = async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
@@ -29,7 +27,10 @@ const login = async (req, res, next) => {
 
     let result = false;
     try {
-        result = await bcrypt.compare(req.body.password, user.password);
+        result = await hashHandler.compareHash(
+            req.body.password,
+            user.password
+        );
     } catch (error) {
         return next(error); //TODO: This may not be safe if the logging includes the password
     }
@@ -74,7 +75,7 @@ const signup = async (req, res, next) => {
 
     let hash = null;
     try {
-        hash = await bcrypt.hash(req.body.password, SALT_ROUNDS);
+        hash = await hashHandler.generateHash(req.body.password);
     } catch (error) {
         return next(error);
     }

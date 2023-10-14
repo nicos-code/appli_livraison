@@ -1,5 +1,6 @@
 const userModel = require("../db/user");
 const util = require("./util");
+const hashHandler = require("../security/hash");
 
 const getAllUsers = async (req, res, next) => {
     if (!(await util.isAdmin(req))) {
@@ -15,7 +16,7 @@ const getAllUsers = async (req, res, next) => {
 
 const getUser = async (id, req, res, next) => {
     try {
-        res.json(await userModel.findById(id));
+        res.json(await userModel.findById(id).select("-password"));
     } catch (error) {
         return next(error);
     }
@@ -37,6 +38,29 @@ const getSessionUser = async (req, res, next) => {
 };
 
 const editUser = async (id, req, res, next) => {
+    if (req.body.email) {
+        try {
+            await userModel.findByIdAndUpdate(
+                id,
+                { email: req.body.email },
+                { new: true }
+            );
+        } catch (error) {
+            return next(error);
+        }
+    }
+    if (req.body.password) {
+        try {
+            const hash = await hashHandler.generateHash(req.body.password);
+            await userModel.findByIdAndUpdate(
+                id,
+                { password: hash },
+                { new: true }
+            );
+        } catch (error) {
+            return next(error);
+        }
+    }
     if (req.body.firstName) {
         try {
             await userModel.findByIdAndUpdate(
@@ -105,7 +129,7 @@ const editUser = async (id, req, res, next) => {
     }
 
     try {
-        const user = await userModel.findById(req.params.id);
+        const user = await userModel.findById(id).select("-password");
         res.json(user);
     } catch (error) {
         return next(error);
