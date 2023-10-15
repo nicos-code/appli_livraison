@@ -59,7 +59,7 @@ const signup = async (req, res, next) => {
 
     try {
         if (await userModel.findOne({ email: req.body.email })) {
-            return next(alreadyExistsError("user with this email"));
+            return next(alreadyExistsError("L'utilisateur avec cet email"));
         }
     } catch (error) {
         return next(error);
@@ -128,7 +128,7 @@ const logas = async (finder, req, res, next) => {
     }
 
     if (!user) {
-        return next(doesntExistError("user with this id"));
+        return next(doesntExistError("L'utilisateur avec cet id"));
     }
 
     req.session.userId = user.id;

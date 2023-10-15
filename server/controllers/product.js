@@ -98,7 +98,7 @@ const dropProduct = async (req, res, next) => {
         !qteProduit.has(product._id.toString()) ||
         qteProduit.get(product._id.toString()) <= 0
     ) {
-        return next(stockError("Product isn't in the cart"));
+        return next(stockError("Le produit n'est plus dans le panier"));
     }
 
     // Update cart first because:

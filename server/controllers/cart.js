@@ -62,7 +62,7 @@ const validateCart = async (id, req, res, next) => {
     }
 
     if (cart.qteProduit.size === 0) {
-        return next(stockError("Cart is empty"));
+        return next(stockError("Le panier est vide"));
     }
 
     let order;

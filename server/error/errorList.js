@@ -2,34 +2,35 @@ const { errorBuilder: eb } = require("./errorBuilder");
 
 // The parameters are in this order: errorBuilder(msg, name, status)
 
-const hashError = (msg = "Error when hashing password") =>
+const hashError = (msg = "Erreur lors du hachage du mot de passe") =>
     eb(msg, "hashError", 500);
 
-const credentialError = (msg = "Wrong email or password") =>
+const credentialError = (msg = "Email et/ou mot de passe incorrect(s)") =>
     eb(msg, "credentialError", 401);
 
 const missingCredentialError = () =>
-    credentialError("No email or no password provided");
+    credentialError("Aucun email et/ou aucun mot de passe n'a été donné");
 
 const doesntExistError = (object = "object") =>
-    eb(object + " doesn't exist", "doesntExistError", 401);
+    eb(object + " n'exite pas", "doesntExistError", 401);
 
 const alreadyExistsError = (object = "object") =>
-    eb(object + " already exists", "alreadyExistsError", 401);
+    eb(object + " existe déjà", "alreadyExistsError", 401);
 
 const notLoggedInError = () =>
-    eb("User is not logged in", "notLoggedInError", 401);
+    eb("L'utilisateur n'est pas connecté", "notLoggedInError", 401);
 
-const notAdminError = () => eb("User is not admin", "notAdminError", 403);
+const notAdminError = () =>
+    eb("L'utilisateur n'est pas un administrateur", "notAdminError", 403);
 
 const sessionNotCorrespondingError = () =>
     eb(
-        "Cannot access resources of other users (or not logged in)",
+        "Il n'est pas possible d'accéder aux ressources d'un autre utilisateur",
         "sessionNotCorrespondingError",
         403
     );
 
-const stockError = (msg = "Out of stock") => eb(msg, "stockError", 403);
+const stockError = (msg = "Stock épuisé") => eb(msg, "stockError", 403);
 
 module.exports = {
     hashError,
