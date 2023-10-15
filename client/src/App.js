@@ -9,7 +9,9 @@ import Order from "./pages/Order";
 import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
 import Logas from "./pages/Logas";
+import Admin from "./pages/Admin";
 import User from "./pages/User";
+import AllUsers from "./pages/AllUsers";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -30,6 +32,8 @@ export default function App() {
                     <Route path="/order" element={<Order />} />
                     <Route path="/user" element={<User />} />
                     <Route path="/logas" element={<Logas />} />
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/users" element={<AllUsers />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

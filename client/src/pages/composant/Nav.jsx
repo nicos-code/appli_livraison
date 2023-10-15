@@ -36,8 +36,8 @@ function PagesMenu({ session }) {
 
         if (session.userIsRoot) {
             menuContent.push({
-                name: "Connexion à un autre utilisateur",
-                link: "/logas",
+                name: "Administration",
+                link: "/admin",
             });
         }
     }
