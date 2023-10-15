@@ -40,8 +40,10 @@ function History() {
     let count = 1;
     let history = [];
     for (let order of orders) {
+        order.totalArticle = 0;
         let products = [];
         for (let productId in order.qteProduit) {
+            order.totalArticle += order.qteProduit[productId]
             products.push(
                 <CartProduct
                     key={productId}
@@ -52,7 +54,8 @@ function History() {
         }
         history.push(
             <div>
-                Commande {count} :{products}
+                Commande {count} : {order.totalArticle} articles : {order.prixTotal} €
+                {products}
             </div>
         );
         count++;

@@ -6,9 +6,11 @@ import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
 import { getJson, postJson } from "../common/functions";
 import CartProduct from "./composant/CartProduct";
+import { useNavigate } from "react-router-dom";
 
 // Page du panier
 export default function Cart() {
+
     return (
         <>
             <Header />
@@ -23,7 +25,7 @@ export default function Cart() {
                 <ListCart />
             </div>
 
-            <p>
+            {/* <p>
                 <strong>
                     Prix total de la commande :{" "}
                     <span id="prix_commande">R U R' U' (sexy move)</span>
@@ -32,13 +34,16 @@ export default function Cart() {
                 <button
                     onClick={() =>
                         postJson("/cart/", () =>
-                            console.log("Commande validée")
+                            {
+                                console.log("Commande validée")
+                                navigate("/order")
+                            }
                         )
                     }
                 >
                     Valider la commande
                 </button>
-            </p>
+            </p> */}
 
             <Footer />
         </>
@@ -79,6 +84,8 @@ function ListCart() {
     // Une fois connecté au back
     const [cart, setData] = useState(null);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         refreshList(setData);
     }, []);
@@ -102,7 +109,29 @@ function ListCart() {
         );
     }
 
-    return products;
+    return (
+        <>
+            {products}
+            <p>
+                <strong>
+                    Prix total de la commande : {cart.prixTotal} €
+                </strong><br/>
+
+                <button
+                    onClick={() =>
+                        postJson("/cart/", () =>
+                            {
+                                console.log("Commande validée")
+                                navigate("/order")
+                            }
+                        )
+                    }
+                >
+                    Valider la commande
+                </button>
+            </p>
+        </>
+    );
 }
 
 function refreshList(setData) {
