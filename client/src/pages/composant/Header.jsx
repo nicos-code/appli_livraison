@@ -1,6 +1,6 @@
 // En-tête
 
-const siteName = "FakeUberEats";
+const siteName = "BikeOrders";
 
 export default function Header() {
     return (
