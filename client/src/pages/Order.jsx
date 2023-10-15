@@ -13,8 +13,8 @@ export default function Order() {
         <>
             <Header />
             <Nav />
-            <p>Voici les commandes :</p>
-            <div className="list_cart">
+            <div className="list_cart container">
+                <h2>Historique des commandes</h2>
                 <History />
             </div>
             <Footer />
@@ -43,7 +43,7 @@ function History() {
         order.totalArticle = 0;
         let products = [];
         for (let productId in order.qteProduit) {
-            order.totalArticle += order.qteProduit[productId]
+            order.totalArticle += order.qteProduit[productId];
             products.push(
                 <CartProduct
                     key={productId}
@@ -54,8 +54,16 @@ function History() {
         }
         history.push(
             <div>
-                Commande {count} : {order.totalArticle} articles : {order.prixTotal} €
-                {products}
+                <h3>Commande {count}</h3>
+                <table className="table">
+                    <tbody>{products}</tbody>
+                </table>
+                <div className="mb-3">
+                    <strong>
+                        {order.totalArticle} articles :{" "}
+                        <span className="text-danger">{order.prixTotal}</span> €
+                    </strong>
+                </div>
             </div>
         );
         count++;

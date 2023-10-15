@@ -12,22 +12,32 @@ export default function CartProduct({ productId, qte }) {
     }
 
     return (
-        <p className="cart_product" id={"product_" + productId}>
+        <tr className="cart_product" id={"product_" + productId}>
             {/* Afficher les caractéristiques */}
-            <strong>{product.nom}</strong>
-            <br />
-            <span>Prix : {product.prix} €</span>
-            <br />
-            <span>Quantité : {qte}</span>
-            <br />
-            <span>Stock Total : {product.stock}</span>
-            <br />
-            <span>
-                Prix Total :{" "}
-                <span className="cart_product_total">
-                    {product.prix * qte} €
+            <td>
+                <strong>{product.nom}</strong>
+            </td>
+
+            <td>
+                <span>Prix : {product.prix} €</span>
+            </td>
+
+            <td>
+                <span>Quantité : {qte}</span>
+            </td>
+
+            <td>
+                <span>Stock Total : {product.stock}</span>
+            </td>
+
+            <td>
+                <span>
+                    Prix Total :{" "}
+                    <span className="cart_product_total">
+                        {product.prix * qte} €
+                    </span>
                 </span>
-            </span>
-        </p>
+            </td>
+        </tr>
     );
 }

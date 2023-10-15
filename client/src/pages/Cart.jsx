@@ -10,41 +10,18 @@ import { useNavigate } from "react-router-dom";
 
 // Page du panier
 export default function Cart() {
-
     return (
         <>
             <Header />
             <Nav />
-            <p>
-                <a href="/"> Retour à l'accueil</a>
-            </p>
-            <p>Voici le panier :</p>
 
-            {/* appel à l'api : /api */}
-            <div className="list_cart">
+            <div className="container">
+                <h2>Panier</h2>
+
+                {/* appel à l'api : /api */}
+
                 <ListCart />
             </div>
-
-            {/* <p>
-                <strong>
-                    Prix total de la commande :{" "}
-                    <span id="prix_commande">R U R' U' (sexy move)</span>
-                </strong>
-
-                <button
-                    onClick={() =>
-                        postJson("/cart/", () =>
-                            {
-                                console.log("Commande validée")
-                                navigate("/order")
-                            }
-                        )
-                    }
-                >
-                    Valider la commande
-                </button>
-            </p> */}
-
             <Footer />
         </>
     );
@@ -99,7 +76,9 @@ function ListCart() {
     }
 
     let products = [];
+    cart.totalArticle = 0;
     for (let productId in cart.qteProduit) {
+        cart.totalArticle += cart.qteProduit[productId];
         products.push(
             <CartProduct
                 key={productId}
@@ -110,27 +89,32 @@ function ListCart() {
     }
 
     return (
-        <>
-            {products}
-            <p>
+        <div className="list_cart">
+            <table className="table">
+                <tbody>{products}</tbody>
+            </table>
+            <div className="mb-3">
                 <strong>
-                    Prix total de la commande : {cart.prixTotal} €
-                </strong><br/>
+                    {cart.totalArticle} articles.
+                    <br />
+                    {/*prettier-ignore*/}
+                    Prix total de la commande :{" "}
+                    <span className="text-danger">{cart.prixTotal}</span> €
+                </strong>
+            </div>
 
-                <button
-                    onClick={() =>
-                        postJson("/cart/", () =>
-                            {
-                                console.log("Commande validée")
-                                navigate("/order")
-                            }
-                        )
-                    }
-                >
-                    Valider la commande
-                </button>
-            </p>
-        </>
+            <button
+                className="col-2 btn btn-primary"
+                onClick={() =>
+                    postJson("/cart/", () => {
+                        console.log("Commande validée");
+                        navigate("/order");
+                    })
+                }
+            >
+                Valider la commande
+            </button>
+        </div>
     );
 }
 

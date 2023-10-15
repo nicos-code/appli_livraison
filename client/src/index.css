@@ -57,13 +57,6 @@ li {
 /* Affichage du panier */
 .cart_product {
     border: 1px solid orange;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /* align-items: center; */
-    padding: 10px;
-    margin: 10px;
-    /* width: 100px; */
 }
 
 /* Liste des produits du panier */
