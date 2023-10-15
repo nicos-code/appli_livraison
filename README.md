@@ -15,7 +15,7 @@ Une fois les conteneurs créés, vous pourrez y accéder aux ports suivants :
 - 3001 pour le backend
 - 27017 pour mongodb.
 
-Pour vous connectez directement à l'application, vous pouvez généralement utiliser l'url suivante (en fonction de la configuration de Docker) : `http://localhost:3000/`
+Pour vous connecter directement à l'application, vous pouvez généralement utiliser l'url suivante (en fonction de la configuration de Docker) : `http://localhost:3000/`
 
 ## Installation manuelle des outils utilisés
 
