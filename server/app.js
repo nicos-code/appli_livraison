@@ -5,8 +5,10 @@ const security = require("./security");
 
 const PORT = 3001;
 
+const frontHost = process.env.FRONT_HOST || "localhost";
+
 const CORS_OPTIONS = {
-    origin: "http://localhost:3000",
+    origin: "http://" + frontHost + ":3000",
     optionsSuccessStatus: 200,
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,

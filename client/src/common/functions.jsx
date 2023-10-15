@@ -1,6 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
+const backHost = process.env.BACK_HOST || "localhost";
+const hostBaseUrl = "http://" + backHost + ":3001/api";
+
 function standardErrorHandling({ name, message, status }, navigate) {
     toast.error(name + ": " + message);
 
@@ -40,14 +43,14 @@ function axiosErrorHandling(error, navigate) {
 
 export function getJson(url, navigate, callback) {
     axios
-        .get("http://localhost:3001/api" + url, { withCredentials: true })
+        .get(hostBaseUrl + url, { withCredentials: true })
         .then((response) => callback(response.data))
         .catch((error) => axiosErrorHandling(error, navigate));
 }
 
 export function postJson(url, navigate, callback, json) {
     axios
-        .post("http://localhost:3001/api" + url, json, {
+        .post(hostBaseUrl + url, json, {
             withCredentials: true,
         })
         .then((reponse) => callback(reponse.data))
