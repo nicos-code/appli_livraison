@@ -1,0 +1,32 @@
+version: '2'
+services:
+    appli_liv_frontend:
+        container_name: appli_liv_frontend
+        build: ./client
+        ports:
+            - '3000:3000'
+        environment:
+            - BACK_HOST=appli_liv_backend
+    appli_liv_backend:
+        container_name: appli_liv_backend
+        build: ./server
+        ports:
+            - '3001:3001' # expose port 3001 to the host
+        environment:
+            - DATABASE_HOST=appli_liv_mongo # docker services are accessible by their name
+        depends_on:
+            appli_liv_mongo:
+                condition: service_healthy
+    appli_liv_mongo:
+        container_name: appli_liv_mongo
+        image: 'mongo:latest'
+        ports:
+            - '27017:27017' # expose port 27017 to the host so we can use a MongoDB GUI
+        attach: false
+        environment:
+            - FRONT_HOST=appli_liv_frontend
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/appli_livraison --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5

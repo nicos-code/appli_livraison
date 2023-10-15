@@ -111,6 +111,11 @@ const dropProduct = async (req, res, next) => {
         product._id,
         qteProduit.has(product._id.toString()) ? qteProduit.get(product.id.toString()) - 1 : 1
     );
+
+    if (qteProduit.get(product._id.toString()) === 0) {
+        qteProduit.delete(product._id.toString());
+    }
+
     try {
         await cart.save();
     } catch (error) {

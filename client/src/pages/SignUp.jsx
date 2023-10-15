@@ -5,6 +5,7 @@ import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
 import Nav from "./composant/Nav";
+import { toast } from "react-toastify";
 
 // Page d'accueil
 export default function SignUp() {
@@ -13,7 +14,15 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        postJson("/auth/signup", navigate, () => navigate("/home"), data);
+        postJson(
+            "/auth/signup",
+            navigate,
+            () => {
+                toast.success("Compte créé !");
+                navigate("/home");
+            },
+            data
+        );
     };
     return (
         <>

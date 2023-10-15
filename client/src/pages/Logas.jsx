@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "./composant/Header";
 import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
+import { toast } from "react-toastify";
 
 // Page d'accueil
 export default function Login(props) {
@@ -12,9 +13,10 @@ export default function Login(props) {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        postJson("/auth/logas/email/" + data.email, navigate, () =>
-            navigate("/home")
-        );
+        postJson("/auth/logas/email/" + data.email, navigate, () => {
+            toast.success("Connexion à un autre utilisateur réussie !");
+            navigate("/home");
+        });
     };
     return (
         <>

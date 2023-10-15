@@ -6,7 +6,18 @@ Le site web proposé permet à un utilisateur de créer un compte, de se connect
 
 Un compte admistrateur existe également et permet notamment de consulter la liste des utilisateurs, leur panier et leurs commandes.
 
-## Installation des outils utilisés
+## Utilisation avec Docker
+Après avoir installé Docker :
+- `docker compose up -d` : créer les conteneurs
+
+Une fois les conteneurs créés, vous pourrez y accéder aux ports suivants :
+- 3000 pour le frontend
+- 3001 pour le backend
+- 27017 pour mongodb.
+
+Pour vous connectez directement à l'application, vous pouvez généralement utiliser l'url suivante (en fonction de la configuration de Docker) : `http://localhost:3000/`
+
+## Installation manuelle des outils utilisés
 
 ### Installation de Node.js
 
@@ -38,7 +49,9 @@ Dans le dossier `/server` :
 -   `npm run resetdb`: permet de réinitialiser la base de données (correspond à faire removedb puis initdb).
 -   `npm start`: permet de lancer le projet backend. Il se lance sur le port `3001`.
 
-## Backend Endpoints `/api`
+## Documentation interne (en anglais)
+
+### Backend Endpoints `/api`
 
 -   `/product`
     -   **GET** `/id/:id` - Get product info.

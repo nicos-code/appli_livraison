@@ -3,8 +3,10 @@ const productModel = require("./product");
 const cartModel = require("./cart");
 const userModel = require("./user");
 
+const dbHost = process.env.DATABASE_HOST || "127.0.0.1";
+
 async function initDb() {
-    await mongoose.connect("mongodb://127.0.0.1/appli_livraison", {
+    await mongoose.connect("mongodb://" + dbHost + "/appli_livraison", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
