@@ -7,6 +7,7 @@ import Footer from "./composant/Footer";
 import { getJson, postJson } from "../common/functions";
 import CartProduct from "./composant/CartProduct";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 // Page du panier
 export default function Cart() {
@@ -76,7 +77,10 @@ function ListCart() {
             <button
                 className="col-2 btn btn-primary"
                 onClick={() =>
-                    postJson("/cart/", navigate, () => navigate("/order"))
+                    postJson("/cart/", navigate, () => {
+                        toast.success("Commande validée !");
+                        navigate("/order");
+                    })
                 }
             >
                 Valider la commande

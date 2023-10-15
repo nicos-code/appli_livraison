@@ -6,6 +6,7 @@ import Header from "./composant/Header";
 import Footer from "./composant/Footer";
 import { getJson, postJson } from "../common/functions";
 import Nav from "./composant/Nav";
+import { toast } from "react-toastify";
 
 // Page d'accueil
 export default function User() {
@@ -14,7 +15,15 @@ export default function User() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        postJson("/user", navigate, () => navigate("/home"), data);
+        postJson(
+            "/user",
+            navigate,
+            () => {
+                toast.success("Utilisateur modifié !");
+                navigate("/home");
+            },
+            data
+        );
     };
 
     useEffect(() => {

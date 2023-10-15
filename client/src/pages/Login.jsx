@@ -6,6 +6,7 @@ import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
 import Nav from "./composant/Nav";
+import { toast } from "react-toastify";
 
 // Page d'accueil
 export default function Login() {
@@ -14,7 +15,15 @@ export default function Login() {
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        postJson("/auth/login", navigate, () => navigate("/home"), data);
+        postJson(
+            "/auth/login",
+            navigate,
+            () => {
+                toast.success("Connexion réussie !");
+                navigate("/home");
+            },
+            data
+        );
     };
     return (
         <>
