@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+// import ReactDOM from 'react-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from "./pages/Home";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
+import Order from "./pages/Order";
+import SignUp from "./pages/SignUp";
+import Logout from "./pages/Logout";
+import Logas from "./pages/Logas";
+import Admin from "./pages/Admin";
+import User from "./pages/User";
+import AllUsers from "./pages/AllUsers";
+
+import "./App.css";
+import "react-toastify/dist/ReactToastify.min.css";
+import "bootstrap/dist/css/bootstrap.css";
+
+//en utilisant le composant Route
+export default function App() {
+    return (
+        <>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/logout" element={<Logout />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/order" element={<Order />} />
+                    <Route path="/user" element={<User />} />
+                    <Route path="/logas" element={<Logas />} />
+                    <Route path="/admin" element={<Admin />} />
+                    <Route path="/users" element={<AllUsers />} />
+                </Routes>
+            </BrowserRouter>
+            <ToastContainer />
+        </>
+    );
 }
-
-export default App;
