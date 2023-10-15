@@ -1,6 +1,7 @@
 const productModel = require("../db/product");
 const cartModel = require("../db/cart");
 const util = require("./util");
+const { notLoggedInError, stockError } = require("../error/errorList");
 
 const getAllProducts = async (req, res, next) => {
     try {
@@ -20,9 +21,8 @@ const getProduct = async (req, res, next) => {
 
 // Ajout au panier
 const grabProduct = async (req, res, next) => {
-    // TODO: error should be handled by a middleware instead of a return res.status(401). ...
     if (!(await util.isLoggedIn(req))) {
-        return util.getNotLoggedInRes(res);
+        return next(notLoggedInError());
     }
 
     // Get product
@@ -35,7 +35,7 @@ const grabProduct = async (req, res, next) => {
 
     // Check product stocks
     if (product.stock <= 0) {
-        return res.status(403).json({ status: 403, error: "Out of stock" });
+        return next(stockError());
     }
 
     // Get Cart
@@ -72,9 +72,8 @@ const grabProduct = async (req, res, next) => {
 };
 
 const dropProduct = async (req, res, next) => {
-    // TODO: error should be handled by a middleware instead of a return res.status(401). ...
     if (!(await util.isLoggedIn(req))) {
-        return util.getNotLoggedInRes(res);
+        return next(notLoggedInError());
     }
 
     // Get product
@@ -99,7 +98,7 @@ const dropProduct = async (req, res, next) => {
         !qteProduit.has(product._id.toString()) ||
         qteProduit.get(product._id.toString()) <= 0
     ) {
-        return res.status(403).json({ status: 403, error: "Not in cart" });
+        return next(stockError("Product isn't in the cart"));
     }
 
     // Update cart first because:

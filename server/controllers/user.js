@@ -1,10 +1,15 @@
 const userModel = require("../db/user");
 const util = require("./util");
 const hashHandler = require("../security/hash");
+const {
+    notAdminError,
+    notLoggedInError,
+    sessionNotCorrespondingError,
+} = require("../error/errorList");
 
 const getAllUsers = async (req, res, next) => {
     if (!(await util.isAdmin(req))) {
-        return util.getNotAdminRes(res);
+        return next(notAdminError());
     }
 
     try {
@@ -25,14 +30,14 @@ const getUser = async (id, req, res, next) => {
 const getIdUser = async (req, res, next) => {
     //prettier-ignore
     if (!(await util.sessionIsCorresponding(req))) {
-        return util.getSessionNotCorrespondingRes(res);
+        return next(sessionNotCorrespondingError());
     }
     return await getUser(req.params.id, req, res, next);
 };
 
 const getSessionUser = async (req, res, next) => {
     if (!(await util.isLoggedIn(req))) {
-        return util.getNotLoggedInRes(res);
+        return next(notLoggedInError());
     }
     return await getUser(req.session.userId, req, res, next);
 };
@@ -139,14 +144,14 @@ const editUser = async (id, req, res, next) => {
 const editIdUser = async (req, res, next) => {
     //prettier-ignore
     if (!(await util.sessionIsCorresponding(req))) {
-        return util.getSessionNotCorrespondingRes(res);
+        return next(sessionNotCorrespondingError());
     }
     return await editUser(req.params.id, req, res, next);
 };
 
 const editSessionUser = async (req, res, next) => {
     if (!(await util.isLoggedIn(req))) {
-        return util.getNotLoggedInRes(res);
+        return next(notLoggedInError());
     }
     return await editUser(req.session.userId, req, res, next);
 };

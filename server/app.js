@@ -28,5 +28,7 @@ require("./db/db");
 
 app.use(require("./routes"));
 
+app.use(require("./error"));
+
 app.listen(PORT);
 console.log("Express.js server launched!");

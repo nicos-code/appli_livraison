@@ -2,13 +2,19 @@ const userModel = require("../db/user");
 const cartModel = require("../db/cart");
 const util = require("./util");
 const hashHandler = require("../security/hash");
+const {
+    credentialError,
+    missingCredentialError,
+    hashError,
+    doesntExistError,
+    alreadyExistsError,
+    notAdminError,
+    notLoggedInError,
+} = require("../error/errorList");
 
 const login = async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
-        return res.status(401).json({
-            status: 401,
-            error: "Unauthorized: no email or no password provided",
-        });
+        return next(missingCredentialError());
     }
 
     let user = null;
@@ -19,10 +25,7 @@ const login = async (req, res, next) => {
     }
 
     if (!user) {
-        return res.status(401).json({
-            status: 401,
-            error: "Unauthorized: wrong email or password",
-        });
+        return next(credentialError());
     }
 
     let result = false;
@@ -32,43 +35,31 @@ const login = async (req, res, next) => {
             user.password
         );
     } catch (error) {
-        return next(error); //TODO: This may not be safe if the logging includes the password
+        return next(hashError());
     }
 
     if (!result) {
-        return res.status(401).json({
-            status: 401,
-            error: "Unauthorized: wrong email or password",
-        });
+        return next(credentialError());
     }
 
-    try {
-        req.session.userId = user.id;
-        req.session.userEmail = user.email;
-        req.session.userIsRoot = user.isRoot;
-        return res.status(200).json({
-            status: 200,
-            message: "User logged in successfully, session id is: " + user.id,
-        });
-    } catch (error) {
-        return next(error);
-    }
+    req.session.userId = user.id;
+    req.session.userEmail = user.email;
+    req.session.userIsRoot = user.isRoot;
+    return res.status(200).json({
+        name: "success",
+        status: 200,
+        message: "User logged in successfully, session id is: " + user.id,
+    });
 };
 
 const signup = async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
-        return res.status(401).json({
-            status: 401,
-            error: "Unauthorized: no email or no password provided",
-        });
+        return next(missingCredentialError());
     }
 
     try {
         if (await userModel.findOne({ email: req.body.email })) {
-            return res.status(401).json({
-                status: 401,
-                error: "Unauthorized: email already exists",
-            });
+            return next(alreadyExistsError("user with this email"));
         }
     } catch (error) {
         return next(error);
@@ -78,14 +69,11 @@ const signup = async (req, res, next) => {
     try {
         hash = await hashHandler.generateHash(req.body.password);
     } catch (error) {
-        return next(error);
+        return next(hashError());
     }
 
     if (!hash) {
-        return res.status(401).json({
-            status: 401,
-            error: "Unauthorized: password could not be hashed",
-        });
+        return next(hashError());
     }
 
     try {
@@ -103,6 +91,7 @@ const signup = async (req, res, next) => {
         req.session.userIsRoot = user.isRoot;
 
         return res.status(200).json({
+            name: "success",
             status: 200,
             message:
                 "User signed up successfull, session id is: " +
@@ -117,6 +106,7 @@ const logout = async (req, res, next) => {
     try {
         req.session.destroy();
         return res.status(200).json({
+            name: "success",
             status: 200,
             message: "User logged out successfully",
         });
@@ -127,7 +117,7 @@ const logout = async (req, res, next) => {
 
 const logas = async (finder, req, res, next) => {
     if (!(await util.isAdmin(req))) {
-        return util.getNotAdminRes(res);
+        return next(notAdminError());
     }
 
     let user = null;
@@ -138,16 +128,14 @@ const logas = async (finder, req, res, next) => {
     }
 
     if (!user) {
-        return res.status(401).json({
-            status: 401,
-            error: "Unauthorized: wrong user id",
-        });
+        return next(doesntExistError("user with this id"));
     }
 
     req.session.userId = user.id;
     req.session.userEmail = user.email;
     req.session.userIsRoot = user.isRoot;
     return res.status(200).json({
+        name: "success",
         status: 200,
         message:
             "Logged as another user successfully, session id is: " +
@@ -167,7 +155,7 @@ const logasEmail = async (req, res, next) => {
 
 const getSession = async (req, res, next) => {
     if (!(await util.isLoggedIn(req))) {
-        return res.json(null);
+        return next(notLoggedInError());
     }
 
     return res.json(req.session);

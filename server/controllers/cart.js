@@ -2,10 +2,16 @@ const cartModel = require("../db/cart");
 const orderModel = require("../db/order");
 const productModel = require("../db/product");
 const util = require("./util");
+const {
+    notAdminError,
+    notLoggedInError,
+    sessionNotCorrespondingError,
+    stockError,
+} = require("../error/errorList");
 
 const getAllCarts = async (req, res, next) => {
     if (!(await util.isAdmin(req))) {
-        return util.getNotAdminRes(res);
+        return next(notAdminError());
     }
 
     try {
@@ -32,7 +38,7 @@ const getCart = async (id, req, res, next) => {
 const getIdCart = async (req, res, next) => {
     //prettier-ignore
     if (!(await util.sessionIsCorresponding(req))) {
-        return util.getSessionNotCorrespondingRes(res);
+        return next(sessionNotCorrespondingError());
     }
 
     return await getCart(req.params.id, req, res, next);
@@ -41,7 +47,7 @@ const getIdCart = async (req, res, next) => {
 const getSessionCart = async (req, res, next) => {
     //prettier-ignore
     if (!(await util.isLoggedIn(req))) {
-        return util.getNotLoggedInRes(res);
+        return next(notLoggedInError());
     }
 
     return await getCart(req.session.userId, req, res, next);
@@ -56,7 +62,7 @@ const validateCart = async (id, req, res, next) => {
     }
 
     if (cart.qteProduit.size === 0) {
-        return res.status(403).json({ status: 403, error: "Cart is empty" });
+        return next(stockError("Cart is empty"));
     }
 
     let order;
@@ -81,7 +87,7 @@ const validateCart = async (id, req, res, next) => {
 
 const validateIdCart = async (req, res, next) => {
     if (!(await util.sessionIsCorresponding(req))) {
-        return util.getSessionNotCorrespondingRes(res);
+        return next(sessionNotCorrespondingError());
     }
 
     return await validateCart(req.params.id, req, res, next);
@@ -89,7 +95,7 @@ const validateIdCart = async (req, res, next) => {
 
 const validateSessionCart = async (req, res, next) => {
     if (!(await util.isLoggedIn(req))) {
-        return util.getNotLoggedInRes(res);
+        return next(notLoggedInError());
     }
 
     return await validateCart(req.session.userId, req, res, next);

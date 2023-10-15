@@ -25,30 +25,8 @@ const sessionIsCorresponding = async (req) => {
     );
 };
 
-const getNotLoggedInRes = (res) => {
-    return res
-        .status(401)
-        .json({ status: 401, error: "Unauthorized: user is not logged in" });
-};
-
-const getNotAdminRes = (res) => {
-    return res
-        .status(403)
-        .json({ status: 403, error: "Unauthorized: user is not admin" });
-};
-
-const getSessionNotCorrespondingRes = (res) => {
-    //prettier-ignore
-    return res
-        .status(403)
-        .json({ status: 403, error: "Unauthorized: cannot access resources of other users (or not logged in)" });
-};
-
 module.exports = {
     isLoggedIn,
     isAdmin,
     sessionIsCorresponding,
-    getNotLoggedInRes,
-    getNotAdminRes,
-    getSessionNotCorrespondingRes,
 };
