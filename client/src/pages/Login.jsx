@@ -8,13 +8,12 @@ import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
 
 // Page d'accueil
-export default function Login(props) {
+export default function Login() {
     const formMethods = useForm();
 
     const navigate = useNavigate();
 
     const handleResponse = (response) => {
-        console.log(response);
         if (response.status === 200) {
             navigate("/home");
         } else {

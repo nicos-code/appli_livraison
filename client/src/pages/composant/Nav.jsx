@@ -24,30 +24,34 @@ function refreshSession(setUser) {
 }
 
 function PagesMenu({ session }) {
-    const menuContent = [
-        { name: "Accueil", link: "/home" },
-        { name: "Panier", link: "/cart" },
-        { name: "Commandes", link: "/order" },
-    ];
+    let menuContent = [{ name: "Accueil", link: "/home" }];
 
     if (
-        session == null ||
-        session.userId == null ||
-        session.userEmail == null
+        session != null &&
+        session.userId != null &&
+        session.userEmail != null
     ) {
-        return (
-            <ul className="navbar-nav ml-auto">
-                <NavElement link="/home" name="Accueil" className="nav-link" />
-            </ul>
-        );
+        menuContent.push({ name: "Panier", link: "/cart" });
+        menuContent.push({ name: "Commandes", link: "/order" });
+
+        if (session.userIsRoot) {
+            menuContent.push({
+                name: "Connexion à un autre utilisateur",
+                link: "/logas",
+            });
+        }
     }
 
     return (
         <ul className="navbar-nav ml-auto">
-            <NavElement link="/home" name="Accueil" className="nav-link" />
-            <NavElement link="/cart" name="Panier" className="nav-link" />
-            {/*prettier-ignore*/}
-            <NavElement link="/order" name="Commandes" className="nav-link"/>
+            {menuContent.map((item) => (
+                <NavElement
+                    key={item.link}
+                    link={item.link}
+                    name={item.name}
+                    className="nav-link"
+                />
+            ))}
         </ul>
     );
 }

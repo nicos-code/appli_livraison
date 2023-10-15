@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Order from "./pages/Order";
 import SignUp from "./pages/SignUp";
 import Logout from "./pages/Logout";
+import Logas from "./pages/Logas";
 import User from "./pages/User";
 
 import "./App.css";
@@ -28,6 +29,7 @@ export default function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/order" element={<Order />} />
                     <Route path="/user" element={<User />} />
+                    <Route path="/logas" element={<Logas />} />
                 </Routes>
             </BrowserRouter>
             <ToastContainer />

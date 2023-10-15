@@ -9,7 +9,9 @@ router.route("/signup").post(authController.signup);
 
 router.route("/logout").post(authController.logout);
 
-router.route("/logas/:id").post(authController.logas);
+// router.route("/logas/id/:id").post(authController.logasId);
+
+// router.route("/logas/email/:email").post(authController.logasEmail);
 
 router.route("/session").get(authController.getSession);
 

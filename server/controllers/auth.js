@@ -45,6 +45,7 @@ const login = async (req, res, next) => {
     try {
         req.session.userId = user.id;
         req.session.userEmail = user.email;
+        req.session.userIsRoot = user.isRoot;
         return res.status(200).json({
             status: 200,
             message: "User logged in successfully, session id is: " + user.id,
@@ -99,6 +100,7 @@ const signup = async (req, res, next) => {
 
         req.session.userId = user.id;
         req.session.userEmail = user.email;
+        req.session.userIsRoot = user.isRoot;
 
         return res.status(200).json({
             status: 200,
@@ -123,14 +125,14 @@ const logout = async (req, res, next) => {
     }
 };
 
-const logas = async (req, res, next) => {
+const logas = async (finder, req, res, next) => {
     if (!(await util.isAdmin(req))) {
         return util.getNotAdminRes(res);
     }
 
     let user = null;
     try {
-        user = await userModel.findById(req.params.id);
+        user = await finder();
     } catch (error) {
         return next(error);
     }
@@ -144,12 +146,23 @@ const logas = async (req, res, next) => {
 
     req.session.userId = user.id;
     req.session.userEmail = user.email;
+    req.session.userIsRoot = user.isRoot;
     return res.status(200).json({
         status: 200,
         message:
             "Logged as another user successfully, session id is: " +
             req.session.userId,
     });
+};
+
+const logasId = async (req, res, next) => {
+    //prettier-ignore
+    return await logas(async () => await userModel.findById(req.params.id), req, res, next);
+};
+
+const logasEmail = async (req, res, next) => {
+    //prettier-ignore
+    return await logas(async () => await userModel.findOne({ email: req.params.email }), req, res, next);
 };
 
 const getSession = async (req, res, next) => {
@@ -160,4 +173,4 @@ const getSession = async (req, res, next) => {
     return res.json(req.session);
 };
 
-module.exports = { login, signup, logout, logas, getSession };
+module.exports = { login, signup, logout, logasId, logasEmail, getSession };
