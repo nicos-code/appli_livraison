@@ -4,6 +4,7 @@ import Header from "./composant/Header";
 import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
+import Nav from "./composant/Nav";
 
 // Page d'accueil
 export default function SignUp() {
@@ -17,6 +18,7 @@ export default function SignUp() {
     return (
         <>
             <Header />
+            <Nav />
             <div className="container">
                 <h2>Créer un nouveau compte</h2>
                 <LoginPassForm

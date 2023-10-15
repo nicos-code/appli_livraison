@@ -5,6 +5,7 @@ import Header from "./composant/Header";
 import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
 import LoginPassForm from "./composant/LoginPassForm";
+import Nav from "./composant/Nav";
 
 // Page d'accueil
 export default function Login() {
@@ -18,6 +19,7 @@ export default function Login() {
     return (
         <>
             <Header />
+            <Nav />
             <div className="container">
                 <h2>Connexion</h2>
                 <LoginPassForm
