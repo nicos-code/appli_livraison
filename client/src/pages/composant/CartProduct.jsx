@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { getJson } from "../../common/functions";
+import { deleteJson, getJson } from "../../common/functions";
 import { useNavigate } from "react-router-dom";
 
-export default function CartProduct({ productId, qte }) {
+export default function CartProduct({
+    productId,
+    qte,
+    isInCart,
+    refreshCallback,
+}) {
     const [product, setProduct] = useState(null);
 
     const navigate = useNavigate();
@@ -42,6 +47,23 @@ export default function CartProduct({ productId, qte }) {
                     </span>
                 </span>
             </td>
+
+            {isInCart && (
+                <td>
+                    <button
+                        className="btn btn-danger"
+                        onClick={() =>
+                            deleteJson(
+                                "/product/id/" + productId,
+                                navigate,
+                                refreshCallback
+                            )
+                        }
+                    >
+                        Supprimer
+                    </button>
+                </td>
+            )}
         </tr>
     );
 }

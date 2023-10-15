@@ -55,6 +55,8 @@ function ListCart() {
                 key={productId}
                 productId={productId}
                 qte={cart.qteProduit[productId]}
+                isInCart={true}
+                refreshCallback={() => getJson("/cart", navigate, setCart)}
             />
         );
     }

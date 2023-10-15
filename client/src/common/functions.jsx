@@ -56,3 +56,12 @@ export function postJson(url, navigate, callback, json) {
         .then((reponse) => callback(reponse.data))
         .catch((error) => axiosErrorHandling(error, navigate));
 }
+
+export function deleteJson(url, navigate, callback) {
+    axios
+        .delete(hostBaseUrl + url, {
+            withCredentials: true,
+        })
+        .then((reponse) => callback(reponse.data))
+        .catch((error) => axiosErrorHandling(error, navigate));
+}

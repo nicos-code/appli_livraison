@@ -10,7 +10,7 @@ const frontHost = process.env.FRONT_HOST || "localhost";
 const CORS_OPTIONS = {
     origin: "http://" + frontHost + ":3000",
     optionsSuccessStatus: 200,
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
+    methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
     credentials: true,
 };
 
