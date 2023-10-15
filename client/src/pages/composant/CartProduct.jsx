@@ -17,7 +17,11 @@ export default function CartProduct({
     }, [productId, navigate]);
 
     if (product == null) {
-        return <p>Chargement du produit...</p>;
+        return (
+            <tr className="cart_product" id={"product_" + productId}>
+                <td>Chargement du produit...</td>
+            </tr>
+        );
     }
 
     return (

@@ -56,7 +56,7 @@ function History() {
             );
         }
         history.push(
-            <div>
+            <div key={count}>
                 <h3>Commande {count}</h3>
                 <table className="table">
                     <tbody>{products}</tbody>
