@@ -46,19 +46,10 @@ export default function User() {
                     onSubmit={formMethods.handleSubmit(onSubmit)}
                     className="container mb-3"
                 >
-                    {fields.map((field) => (
-                        <div className="mb-3" key={field.name}>
-                            {/*prettier-ignore*/}
-                            <label className="form-label" htmlFor={field.name}>{field.label} : </label>
-                            <input
-                                className="form-control"
-                                id={field.name}
-                                {...formMethods.register(field.name)}
-                                placeholder={field.label}
-                                type={field.type}
-                            />
-                        </div>
-                    ))}
+                    <RegisteredUserFieldList
+                        formMethods={formMethods}
+                        fields={fields}
+                    />
 
                     {/* errors will return when field validation fails  */
                     /* {errors.exampleRequired && <span>This field is required</span>} */}
@@ -72,4 +63,20 @@ export default function User() {
             <Footer />
         </>
     );
+}
+
+function RegisteredUserFieldList(formMethods, fields) {
+    return fields.map((field) => (
+        <div className="mb-3" key={field.name}>
+            {/*prettier-ignore*/}
+            <label className="form-label" htmlFor={field.name}>{field.label} : </label>
+            <input
+                className="form-control"
+                id={field.name}
+                {...formMethods.register(field.name)}
+                placeholder={field.label}
+                type={field.type}
+            />
+        </div>
+    ));
 }

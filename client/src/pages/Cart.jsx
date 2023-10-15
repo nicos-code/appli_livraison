@@ -27,36 +27,6 @@ export default function Cart() {
     );
 }
 
-// function sumCart() {
-//     /* Il faut calculer le prix total de la commande en faisant la somme des "prix_total_[id]" et en l'inscrivant dans "prix_commande" */
-
-//     /* Pour chaque produit du panier, on récupère le prix total et on l'additionne à la somme totale */
-
-//     /* On récupère tous les éléments de classe "cart_product" */
-//     const products = document.getElementsByClassName("cart_product_total");
-
-//     /* On initialise la somme totale à 0 */
-//     let sum = 0;
-
-//     /* On parcourt tous les éléments de classe "cart_product" */
-//     for (let i = 0; i < products.length; i++) {
-//         /* On récupère le prix total du produit */
-//         const price = products[i].children[4].innerText.split(" ")[3];
-
-//         /* On l'additionne à la somme totale */
-//         sum += parseFloat(price);
-//         console.log("prix : " + price + ", somme : " + sum);
-//     }
-
-//     /* On l'inscrit dans le span "prix_commande" */
-//     document.getElementById("prix_commande").innerText = sum + " €";
-
-//     /* On peut aussi utiliser la fonction reduce() */
-//     // const products = document.getElementsByClassName("cart_product");
-//     // const sum = Array.from(products).reduce((acc, product) => acc + parseFloat(product.children[4].innerText.split(" ")[3]), 0);
-//     // document.getElementById("prix_commande").innerText = sum + " €";
-// }
-
 function ListCart() {
     // Une fois connecté au back
     const [cart, setData] = useState(null);
