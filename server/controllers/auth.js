@@ -155,7 +155,7 @@ const logasEmail = async (req, res, next) => {
 
 const getSession = async (req, res, next) => {
     if (!(await util.isLoggedIn(req))) {
-        return null;
+        return res.json(null);
     }
 
     return res.json(req.session);

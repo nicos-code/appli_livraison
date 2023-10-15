@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getJson } from "../../common/functions";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Menu de navigation
 export default function Nav() {
@@ -97,9 +97,9 @@ function AuthMenu({ session }) {
 function NavElement({ name, link, className }) {
     return (
         <li className="nav-item">
-            <a className={className} href={link}>
+            <Link className={className} to={link}>
                 {name}
-            </a>
+            </Link>
         </li>
     );
 }
