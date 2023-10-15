@@ -4,14 +4,17 @@ import Header from "./composant/Header";
 import Footer from "./composant/Footer";
 import { getJson } from "../common/functions";
 import Nav from "./composant/Nav";
+import { useNavigate } from "react-router-dom";
 
 // Page d'accueil
 export default function User() {
     const [users, setUsers] = useState([]);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        getJson("/user/all", (users) => setUsers(users));
-    }, []);
+        getJson("/user/all", navigate, (users) => setUsers(users));
+    }, [navigate]);
 
     return (
         <>

@@ -13,12 +13,8 @@ export default function User() {
 
     const navigate = useNavigate();
 
-    const handleResponse = () => {
-        navigate("/home");
-    };
-
     const onSubmit = (data) => {
-        postJson("/user", handleResponse, data);
+        postJson("/user", navigate, () => navigate("/home"), data);
     };
 
     useEffect(() => {

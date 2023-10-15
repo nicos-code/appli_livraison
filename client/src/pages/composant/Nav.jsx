@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { getJson } from "../../common/functions";
+import { useNavigate } from "react-router-dom";
 
 // Menu de navigation
 export default function Nav() {
     const [session, setSession] = useState(null);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        refreshSession(setSession);
-    }, []);
+        getJson("/auth/session", navigate, setSession);
+    }, [navigate]);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,10 +20,6 @@ export default function Nav() {
             </div>
         </nav>
     );
-}
-
-function refreshSession(setUser) {
-    getJson("/auth/session", setUser);
 }
 
 function PagesMenu({ session }) {

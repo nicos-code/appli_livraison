@@ -10,7 +10,7 @@ export default function Logout(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        postJson("/auth/logout", () => navigate("/home"));
+        postJson("/auth/logout", navigate, () => navigate("/home"));
     }, [navigate]);
 
     return (

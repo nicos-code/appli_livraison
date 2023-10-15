@@ -1,7 +1,5 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-
 import Header from "./composant/Header";
 import Footer from "./composant/Footer";
 import { postJson } from "../common/functions";
@@ -13,17 +11,8 @@ export default function SignUp() {
 
     const navigate = useNavigate();
 
-    const handleResponse = (response) => {
-        console.log(response);
-        if (response.status === 200) {
-            navigate("/home");
-        } else {
-            toast.error("Erreur d'authentification: " + response);
-        }
-    };
-
     const onSubmit = (data) => {
-        postJson("/auth/signup", handleResponse, data);
+        postJson("/auth/signup", navigate, () => navigate("/home"), data);
     };
     return (
         <>

@@ -5,6 +5,7 @@ import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
 import { getJson } from "../common/functions";
 import Product from "./composant/Product";
+import { useNavigate } from "react-router-dom";
 
 // Page d'accueil
 export default function Home() {
@@ -30,9 +31,11 @@ function ListProducts() {
     // Une fois connecté au back
     const [products, setProducts] = useState(null);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        refreshList(setProducts);
-    }, []);
+        getJson("/product/all", navigate, setProducts);
+    }, [navigate]);
 
     if (products == null) {
         return <p>Chargement des produits...</p>;
@@ -42,11 +45,9 @@ function ListProducts() {
         <Product
             key={product._id}
             {...product}
-            refreshCallback={() => refreshList(setProducts)}
+            refreshCallback={() =>
+                getJson("/product/all", navigate, setProducts)
+            }
         />
     ));
-}
-
-function refreshList(setProducts) {
-    getJson("/product/all", setProducts);
 }

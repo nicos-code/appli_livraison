@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { getJson } from "../../common/functions";
+import { useNavigate } from "react-router-dom";
 
 export default function CartProduct({ productId, qte }) {
     const [product, setProduct] = useState(null);
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-        getJson("/product/id/" + productId, setProduct);
-    }, [productId]);
+        getJson("/product/id/" + productId, navigate, setProduct);
+    }, [productId, navigate]);
 
     if (product == null) {
         return <p>Chargement du produit...</p>;

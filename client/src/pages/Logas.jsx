@@ -11,12 +11,10 @@ export default function Login(props) {
 
     const navigate = useNavigate();
 
-    const handleResponse = (response) => {
-        navigate("/home");
-    };
-
     const onSubmit = (data) => {
-        postJson("/auth/logas/email/" + data.email, handleResponse);
+        postJson("/auth/logas/email/" + data.email, navigate, () =>
+            navigate("/home")
+        );
     };
     return (
         <>

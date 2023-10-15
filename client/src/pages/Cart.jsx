@@ -29,13 +29,13 @@ export default function Cart() {
 
 function ListCart() {
     // Une fois connecté au back
-    const [cart, setData] = useState(null);
+    const [cart, setCart] = useState(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        refreshList(setData);
-    }, []);
+        getJson("/cart", navigate, setCart);
+    }, [navigate]);
 
     if (cart == null || cart.qteProduit == null) {
         return <p>Chargement des produits...</p>;
@@ -76,19 +76,11 @@ function ListCart() {
             <button
                 className="col-2 btn btn-primary"
                 onClick={() =>
-                    postJson("/cart/", () => {
-                        console.log("Commande validée");
-                        navigate("/order");
-                    })
+                    postJson("/cart/", navigate, () => navigate("/order"))
                 }
             >
                 Valider la commande
             </button>
         </div>
     );
-}
-
-function refreshList(setData) {
-    getJson("/cart", setData);
-    // sumCart();
 }

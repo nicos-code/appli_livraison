@@ -6,6 +6,7 @@ import Nav from "./composant/Nav";
 import Footer from "./composant/Footer";
 import { getJson } from "../common/functions";
 import CartProduct from "./composant/CartProduct";
+import { useNavigate } from "react-router-dom";
 
 // Page du panier
 export default function Order() {
@@ -23,11 +24,13 @@ export default function Order() {
 }
 
 function History() {
-    const [orders, setData] = useState(null);
+    const [orders, setOrders] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        refreshList(setData);
-    }, []);
+        getJson("/order", navigate, setOrders);
+    }, [navigate]);
 
     if (orders == null) {
         return <p>Chargement des commandes...</p>;
@@ -70,8 +73,4 @@ function History() {
     }
 
     return history;
-}
-
-function refreshList(setData) {
-    getJson("/order", setData);
 }
