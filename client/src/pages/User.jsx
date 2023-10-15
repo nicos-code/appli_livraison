@@ -18,8 +18,8 @@ export default function User() {
     };
 
     useEffect(() => {
-        getJson("/user", (user) => formMethods.reset(user));
-    }, [formMethods]);
+        getJson("/user", navigate, (user) => formMethods.reset(user));
+    }, [formMethods, navigate]);
 
     const fields = [
         { name: "email", type: "email", label: "Email" },
@@ -61,7 +61,7 @@ export default function User() {
     );
 }
 
-function RegisteredUserFieldList(formMethods, fields) {
+function RegisteredUserFieldList({ formMethods, fields }) {
     return fields.map((field) => (
         <div className="mb-3" key={field.name}>
             {/*prettier-ignore*/}
