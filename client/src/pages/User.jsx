@@ -48,10 +48,11 @@ export default function User() {
                 >
                     {fields.map((field) => (
                         <div className="mb-3" key={field.name}>
-                            <label htmlFor={field.key}>{field.label} : </label>
+                            {/*prettier-ignore*/}
+                            <label className="form-label" htmlFor={field.name}>{field.label} : </label>
                             <input
                                 className="form-control"
-                                id={field.key}
+                                id={field.name}
                                 {...formMethods.register(field.name)}
                                 placeholder={field.label}
                                 type={field.type}

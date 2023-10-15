@@ -28,7 +28,8 @@ export default function Login(props) {
                     className="container mb-3"
                 >
                     <div className="mb-3">
-                        <label htmlFor="email">Email : </label>
+                        {/*prettier-ignore*/}
+                        <label className="form-label" htmlFor="email">Email : </label>
                         <input
                             className="form-control"
                             id="email"

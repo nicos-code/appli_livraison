@@ -5,7 +5,8 @@ export default function LoginPassForm({ formMethods, onSubmit, buttonText }) {
             className="container mb-3"
         >
             <div className="mb-3">
-                <label htmlFor="email">Email : </label>
+                {/*prettier-ignore*/}
+                <label className="form-label" htmlFor="email">Email : </label>
                 <input
                     className="form-control"
                     id="email"
@@ -17,7 +18,8 @@ export default function LoginPassForm({ formMethods, onSubmit, buttonText }) {
                 />
             </div>
             <div className="mb-3">
-                <label htmlFor="password">Mot de passe : </label>
+                {/*prettier-ignore*/}
+                <label className="form-label" htmlFor="password">Mot de passe : </label>
                 <input
                     className="form-control"
                     id="password"

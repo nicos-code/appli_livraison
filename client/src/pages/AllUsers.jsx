@@ -14,8 +14,9 @@ export default function User() {
     }, []);
 
     const fields = [
+        { name: "_id", type: "text", label: "Id" },
         { name: "email", type: "email", label: "Email" },
-        { name: "password", type: "password", label: "Mot de passe" },
+        { name: "password", type: "text", label: "Mot de passe" },
         { name: "firstName", type: "text", label: "Prénom" },
         { name: "secondName", type: "text", label: "Nom" },
         { name: "adresseNumero", type: "number", label: "Numéro" },
@@ -36,19 +37,42 @@ export default function User() {
                             <h3>{user.email}</h3>
                             {fields.map((field) => (
                                 <div className="mb-3" key={field.name}>
-                                    <label htmlFor={field.key}>
+                                    <label
+                                        className="form-label"
+                                        htmlFor={field.name}
+                                    >
                                         {field.label} :{" "}
                                     </label>
                                     <input
                                         className="form-control"
-                                        id={field.key}
+                                        id={field.name}
                                         defaultValue={user[field.name]}
-                                        placeholder={field.label}
                                         type={field.type}
+                                        checked={
+                                            field.type === "checkbox"
+                                                ? user[field.name]
+                                                : undefined
+                                        }
                                         disabled
                                     />
                                 </div>
                             ))}
+
+                            <div className="form-check mb-3">
+                                <input
+                                    className="form-check-input"
+                                    id="isRoot"
+                                    type="checkbox"
+                                    checked={user["isRoot"]}
+                                    disabled
+                                />
+                                <label
+                                    className="form-check-label"
+                                    htmlFor={"isRoot"}
+                                >
+                                    Est administrateur
+                                </label>
+                            </div>
                         </div>
                     ))}
                 </form>

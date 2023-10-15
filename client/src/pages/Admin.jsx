@@ -15,8 +15,22 @@ export default function Home() {
                     Connexion à un autre utilisateur
                 </a>
 
+                <br />
+
                 <a className="btn btn-outline-danger mb-3" href="/users">
                     Liste de tous les utilisateurs
+                </a>
+
+                <br />
+
+                <a className="btn btn-outline-danger mb-3" href="/carts">
+                    Liste de tous les paniers
+                </a>
+
+                <br />
+
+                <a className="btn btn-outline-danger mb-3" href="/orders">
+                    Liste de toutes les commandes
                 </a>
             </div>
 
