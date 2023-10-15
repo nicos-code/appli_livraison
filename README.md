@@ -1,14 +1,24 @@
 # appli_livraison
 
-## Partie serveur
+## Fonctionnement
+
+Le site web proposé permet à un utilisateur de créer un compte, de se connecter et de pouvoir commander des vélos. Il a ainsi un panier qui lui est associé et il peut également consulter l'ensemble des commandes qu'il a passées.
+
+Un compte admistrateur existe également et permet notamment de consulter la liste des utilisateurs, leur panier et leurs commandes.
+
+## Installation des outils utilisés
+
+### Installation de Node.js
+
+-   Installer Node.js : https://nodejs.org/fr/download
 
 ### Installation de MongoDB
 
--   Installer mongodb selon son système d'exploitation et sa distribution : https://www.mongodb.com/docs/manual/tutorial/
+-   Installer MongoDB : https://www.mongodb.com/docs/manual/tutorial/
 
-### Commandes Utiles
+## Commandes Utiles
 
-#### Client / Frontend
+### Client / Frontend
 
 Dans le dossier `/client` :
 
@@ -16,7 +26,7 @@ Dans le dossier `/client` :
 
 -   `npm start`: permet de lancer le projet frontend. Page web accessible à l'adresse `http://localhost:3000`
 
-#### Serveur / Backend
+### Serveur / Backend
 
 -   `sudo systemctl start mongod`: (Linux) permet de lancer le service MongoDB. (Remarque : sous Windows, ce service est lancé dès que MongoDB est installé)
 
@@ -28,7 +38,7 @@ Dans le dossier `/server` :
 -   `npm run resetdb`: permet de réinitialiser la base de données (correspond à faire removedb puis initdb).
 -   `npm start`: permet de lancer le projet backend. Il se lance sur le port `3001`.
 
-### Backend Endpoints `/api`
+## Backend Endpoints `/api`
 
 -   `/product`
     -   **GET** `/id/:id` - Get product info.
