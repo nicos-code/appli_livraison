@@ -13,6 +13,7 @@ const compareHash = async (password, hash) => {
     try {
         return await bcrypt.compare(password, hash);
     } catch (error) {
+        // TODO: gestion de l'erreur
         return false; //TODO: This may not be safe if the logging includes the password
     }
 };

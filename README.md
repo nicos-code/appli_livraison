@@ -4,7 +4,7 @@
 
 Le site web proposé permet à un utilisateur de créer un compte, de se connecter et de pouvoir commander des vélos. Il a ainsi un panier qui lui est associé et il peut également consulter l'ensemble des commandes qu'il a passées.
 
-Un compte admistrateur existe également et permet notamment de consulter la liste des utilisateurs, leur panier et leurs commandes.
+Un compte administrateur existe également et permet notamment de consulter la liste des utilisateurs, leur panier et leurs commandes.
 
 ## Utilisation avec Docker
 Après avoir installé Docker :
